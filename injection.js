@@ -1,5 +1,6 @@
+// I removed the header being bold as the other sections were not.
+// But this might be a difference in OS. The class is "text-heading-large" and was on the h2
 const githubContent = `
-
 <section id="ember311" class="artdeco-card ember-view break-words pb3 mt4">
     <div class="pvs-header__container">
       <div class="pvs-header__top-container--no-stack">
