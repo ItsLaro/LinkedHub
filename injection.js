@@ -36,19 +36,33 @@ const findExperienceSection = () => {
     return experienceSection;
 }
 
-const init = () => {
-  // Create GitHub Section
-  const ghSection = createGitHubSection();
+const injectGHSection = (ghSection) => {
   // Grab experience section
   const expSection = findExperienceSection();
-
+  
   // Inject in to webpage
   if (expSection != null) {
     expSection.parentNode.insertBefore(ghSection, expSection);
     console.log("Injection Success!");
+    return true;
   } else {
-    console.log("Injection failed :(")
+    console.log("Injection failed :(");
+    return false;
   }
+}
+
+const attemptInject = (ghSection) => {
+  setTimeout(() => {
+    let injected = injectGHSection(ghSection);
+    if (!injected) {
+      attemptInject();
+    }
+  }, 300);
+}
+
+const init = () => {
+  // Attempt to inject with github section
+  attemptInject(createGitHubSection());
 }
 
 window.onload = init;
