@@ -10,4 +10,7 @@
 4. Directly Navigating to any user profile will have the "GitHub" section injected before Experience.
 ![image](https://user-images.githubusercontent.com/42950201/150767404-ea0ec179-c309-41d3-81ef-7cfd116ca48d.png)
 
-Most changes will occur in the injection.js file.
+Notes:
+- Most changes will occur in the injection.js file.
+- Navigating to a user profile from a different location, will not inject the content correctly (most likely caused by Angular or something)
+
