@@ -57,12 +57,12 @@ const attemptInject = (ghSection) => {
     if (!injected) {
       attemptInject();
     }
-  }, 300);
+  }, 100);
 }
 
-const init = () => {
+const renderGitHubSection = () => {
   // Attempt to inject with github section
   attemptInject(createGitHubSection());
 }
 
-window.onload = init;
+window.addEventListener('load', renderGitHubSection);
