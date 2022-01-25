@@ -18,17 +18,14 @@ const githubContent = `
   </div>
 </section>`;
 
-const createGitHubSection = () => {
-  const element = document.createElement('div');
-  element.className = "github-section";
-  element.innerHTML = githubContent;
-  return element;
-}
+const ghSection = document.createElement('div');
+ghSection.className = "github-section";
+ghSection.innerHTML = githubContent;
 
 const findExperienceSection = () => {
     // Zackary's machine (Windows 10) has the element ID as oc-background-section
     // Replaced the original element ID as experience (possibly what they send for IOS??)
-    const experienceSection = document.getElementById("oc-background-section");
+    let experienceSection = document.getElementById("oc-background-section");
 
     if (experienceSection == null) {
       experienceSection = document.getElementById("experience");
@@ -36,7 +33,7 @@ const findExperienceSection = () => {
     return experienceSection;
 }
 
-const injectGHSection = (ghSection) => {
+const injectGHSection = () => {
   // Grab experience section
   const expSection = findExperienceSection();
   
@@ -44,25 +41,21 @@ const injectGHSection = (ghSection) => {
   if (expSection != null) {
     expSection.parentNode.insertBefore(ghSection, expSection);
     console.log("Injection Success!");
-    return true;
   } else {
     console.log("Injection failed :(");
-    return false;
   }
 }
 
-const attemptInject = (ghSection) => {
+const attemptInject = () => {
   setTimeout(() => {
-    let injected = injectGHSection(ghSection);
-    if (!injected) {
-      attemptInject();
-    }
+    injectGHSection();
+    attemptInject();
   }, 100);
 }
 
 const renderGitHubSection = () => {
   // Attempt to inject with github section
-  attemptInject(createGitHubSection());
+  attemptInject();
 }
 
-window.addEventListener('load', renderGitHubSection);
+renderGitHubSection();
