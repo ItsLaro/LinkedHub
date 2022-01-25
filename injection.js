@@ -22,20 +22,22 @@ const ghSection = document.createElement('div');
 ghSection.className = "github-section";
 ghSection.innerHTML = githubContent;
 
-const findExperienceSection = () => {
+const findPreviousSection = () => {
     // Zackary's machine (Windows 10) has the element ID as oc-background-section
     // Replaced the original element ID as experience (possibly what they send for IOS??)
-    let experienceSection = document.getElementById("oc-background-section");
+    // Attempt to find "experience" section in linkedin page
+    let previousSection = document.getElementById("oc-background-section");
 
-    if (experienceSection == null) {
-      experienceSection = document.getElementById("experience");
+    if (previousSection == null) {
+      // This is another catch for the "experience" section
+      previousSection = document.getElementById("experience");
     }
-    return experienceSection;
+    return previousSection;
 }
 
 const injectGHSection = () => {
   // Grab experience section
-  const expSection = findExperienceSection();
+  const expSection = findPreviousSection();
   
   // Inject in to webpage
   if (expSection != null) {
