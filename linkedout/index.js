@@ -16,25 +16,40 @@ app.get("/", function (req, res) {
 });
 
 // GET method for pinned repos
-app.get("/pinned", function (req, res) {
+app.get("/user/:username/pinned/", function (req, res) {
 
   const accessToken = GITHUB_TOKEN;
 
   const query = `
     query {
-      user(login:"ItsLaro") {
-          pinnedItems(first: 4, types: [REPOSITORY, GIST]) {
-              totalCount
-              edges {
-                  node {
-                      ... on Repository {
-                      name
-                      }
+      user(login:"${req.params.username}") {
+        pinnedItems(first: 4, types: [REPOSITORY, GIST]) {
+          totalCount
+          edges {
+            node {
+                ... on Repository {
+                name
+                isPrivate
+                primaryLanguage {
+                    name
+                    color
                   }
+                description
+                createdAt
+                updatedAt
+                resourcePath
+                owner {
+                  login
+                  avatarUrl
+                  url
+                }
               }
+            }
           }
+        }
       }
-    }`;
+    }
+  `;
 
   fetch('https://api.github.com/graphql', {
   method: 'POST',
