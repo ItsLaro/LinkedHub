@@ -1,5 +1,5 @@
-import fetch from 'node-fetch';
-import express from 'express';
+import fetch from "node-fetch";
+import express from "express";
 
 var app = express();
 const port = 3000;
@@ -17,7 +17,6 @@ app.get("/", function (req, res) {
 
 // GET method for pinned repos
 app.get("/user/:username/pinned/", function (req, res) {
-
   const accessToken = GITHUB_TOKEN;
 
   const query = `
@@ -51,15 +50,16 @@ app.get("/user/:username/pinned/", function (req, res) {
     }
   `;
 
-  fetch('https://api.github.com/graphql', {
-  method: 'POST',
-  body: JSON.stringify({query}),
-  headers: {
-    'Authorization': `Bearer ${accessToken}`,
-  },
-}).then(res => res.text())
-  .then(body => res.send(body)) 
-  .catch(error => console.error(error));
+  fetch("https://api.github.com/graphql", {
+    method: "POST",
+    body: JSON.stringify({ query }),
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then((ghRes) => ghRes.text())
+    .then((ghRes) => res.send(ghRes))
+    .catch((error) => console.error(error));
 });
 
 // POST method route
