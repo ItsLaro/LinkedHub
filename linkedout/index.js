@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import express from "express";
+import cors from "cors";
 
 import settings from "./settings.js";
 import contributions from "./contributions.js";
@@ -8,6 +9,8 @@ import projects from "./projects.js";
 const app = express(),
   port = 3000,
   GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
+app.use(cors());
 
 app.use("/settings/:username", settings);
 app.use("/contributions/:username", contributions);
