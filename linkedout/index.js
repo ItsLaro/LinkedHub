@@ -14,7 +14,7 @@ app.use(cors());
 
 app.use("/settings/:username", settings);
 app.use("/contributions/:username", contributions);
-app.get("/projects/:username", projects);
+app.use("/projects/:username", projects);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
