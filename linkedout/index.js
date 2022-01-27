@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 
 import settings from "./settings.js";
-import contributions from "./contributions.js";
 import projects from "./projects.js";
 
 const app = express(),
@@ -13,7 +12,6 @@ const app = express(),
 app.use(cors());
 
 app.use("/settings/:username", settings);
-app.use("/contributions/:username", contributions);
 app.use("/projects/:username", projects);
 
 app.listen(port, () => {
