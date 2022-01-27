@@ -21,7 +21,7 @@ docRef.get().then((doc) => {
 });
 
 /* Change user settings */
-router.post("/", function (req, res) {
+router.post("/:linkedin_tag", function (req, res) {
   res.send("This is a response");
 });
 
