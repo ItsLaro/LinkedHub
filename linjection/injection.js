@@ -1,17 +1,20 @@
 let attempt = 0;
-let results = ""
-const username = "ItsLaro"
- 
-var apiUrl = `https://localhost:3000/settings/${username}`;
-fetch(apiUrl).then(response => {
-  return response.json();
-}).then(data => {
-  // Work with JSON data here
-  console.log(data);
-  results = data;
-}).catch(err => {
-  console.log("ERROR");
-});
+let results = "";
+const username = "ItsLaro";
+
+fetch(`http://localhost:3000/settings/${username}`)
+  .then((response) => {
+    console.log("step 1");
+    return response.json();
+  })
+  .then((data) => {
+    // Work with JSON data here
+    console.log(data);
+    results = data;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const contributions = `
 <p class="pvs-header__subtitle text-body-small">
@@ -33,14 +36,13 @@ const contributions = `
 <div class="calendar">
   <img src="https://ghchart.rshah.org/409ba5/${username}" alt="2016rshah's Blue Github Chart" style="width:100%;padding:8px"/>
 </div>
-`
+`;
 
 const repos = `
 
-`
+`;
 
-const mainContent = 
-`
+const mainContent = `
 <h2 class="pvs-header__title text-heading-large">
 <!---->
 <span aria-hidden="true">Contributions</span>
@@ -52,11 +54,11 @@ ${contributions}
 <span aria-hidden="true">Repositories</span>
 <!---->
 </h2>
-`
+`;
 const isMac = window.navigator.userAgentData.platform === "macOS";
 const isWin = window.navigator.userAgentData.platform === "Windows";
-console.log(window.navigator.userAgentData.platform)
-let githubContentSection = "Error"
+console.log(window.navigator.userAgentData.platform);
+let githubContentSection = "Error";
 if (isWin) {
   githubContentSection = `
       <div class="pvs-header__container">
@@ -75,7 +77,7 @@ if (isWin) {
       </div>
     </div>
   `;
-} else if (isMac){
+} else if (isMac) {
   githubContentSection = `
     <!---->
     <div id="experience" class="pv-profile-card-anchor"></div>
@@ -95,40 +97,43 @@ if (isWin) {
 `;
 }
 
-const ghSection = document.createElement('section');
-ghSection.className = "github-section artdeco-card ember-view break-words pb3 mt4";
+const ghSection = document.createElement("section");
+ghSection.className =
+  "github-section artdeco-card ember-view break-words pb3 mt4";
 ghSection.innerHTML = githubContentSection;
 
 const findPreviousSection = () => {
-    // Zackary's machine (Windows 10) has the element ID as oc-background-section
-    // Replaced the original element ID as experience (possibly what they send for IOS??)
-    // Attempt to find "experience" section in linkedin page
-    let previousSection = document.getElementById("oc-background-section");
+  // Zackary's machine (Windows 10) has the element ID as oc-background-section
+  // Replaced the original element ID as experience (possibly what they send for IOS??)
+  // Attempt to find "experience" section in linkedin page
+  let previousSection = document.getElementById("oc-background-section");
 
-    if (previousSection == null) {
-      // This is another catch for the "experience" section
-      previousSection = document.getElementById("experience");
-    }
-    return previousSection;
-}
+  if (previousSection == null) {
+    // This is another catch for the "experience" section
+    previousSection = document.getElementById("experience");
+  }
+  return previousSection;
+};
 
 const injectGHSection = () => {
   // Grab experience section
   const expSection = findPreviousSection();
-  console.log(expSection)
+  console.log(expSection);
   // Inject in to webpage
   if (expSection != null) {
-    if(isWin){
+    if (isWin) {
       expSection.parentNode.insertBefore(ghSection, expSection);
-    }
-    else if (isMac){
-      expSection.parentNode.parentNode.insertBefore(ghSection, expSection.parentNode);
+    } else if (isMac) {
+      expSection.parentNode.parentNode.insertBefore(
+        ghSection,
+        expSection.parentNode
+      );
     }
     console.log("Injection Success!");
   } else {
     console.log("Injection failed :(");
   }
-}
+};
 
 const attemptInject = () => {
   setTimeout(() => {
@@ -136,14 +141,14 @@ const attemptInject = () => {
       injectGHSection();
       attempt++;
       attemptInject();
-    }    
+    }
   }, 100);
-}
+};
 
 const renderGitHubSection = () => {
   // Attempt to inject with github section
   attemptInject();
   injectGHSection();
-}
+};
 
 renderGitHubSection();
