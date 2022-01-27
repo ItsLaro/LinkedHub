@@ -5,7 +5,7 @@ const router = express.Router(),
 
 /* Gets the projects */
 /* By default, gets pinned */
-router.get("/", function (req, res) {
+router.get("/:username", function (req, res) {
   const query = `
       query {
         user(login:"${req.params.username}") {

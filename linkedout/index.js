@@ -10,8 +10,8 @@ const app = express(),
 
 app.use(cors());
 
-app.use("/settings/:username", settings);
-app.use("/projects/:username", projects);
+app.use("/settings/", settings);
+app.use("/projects/", projects);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
