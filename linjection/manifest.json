@@ -11,5 +11,8 @@
             "run_at": "document_end"
         }
     ],
-    "host_permissions":["http://www.linkedin.com/in/*"]
+    "host_permissions": [
+        "http://www.linkedin.com/in/*",
+        "http://localhost/*"
+    ]
 }

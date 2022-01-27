@@ -1,26 +1,103 @@
-// I removed the header being bold as the other sections were not.
-// But this might be a difference in OS. The class is "text-heading-large" and was on the h2
-const githubContent = `
-<section id="ember311" class="artdeco-card ember-view break-words pb3 mt4">
-    <div class="pvs-header__container">
-      <div class="pvs-header__top-container--no-stack">
-        <div class="pvs-header__left-container--stack">
-          <div class="pvs-header__title-container">
-            <h2 class="pv-profile-section__card-heading pvs-header__title">
-              <!---->
-              <span aria-hidden="true">GitHub</span>
-              <!---->
-            </h2>
+let attempt = 0;
+let results = ""
+const username = "ItsLaro"
+ 
+var apiUrl = `https://localhost:3000/settings/${username}`;
+fetch(apiUrl).then(response => {
+  return response.json();
+}).then(data => {
+  // Work with JSON data here
+  console.log(data);
+  results = data;
+}).catch(err => {
+  console.log("ERROR");
+});
+
+const contributions = `
+<p class="pvs-header__subtitle text-body-small">
+  <span aria-hidden="true">
+    <a target="_self" href="https://github.com/ItsLaro">
+      <strong>
+        <!---->273 contributions in the last year<!---->
+      </strong>
+    </a>
+  </span>
+  <span class="visually-hidden">
+    <a target="_self" href="https://github.com/ItsLaro">
+      <strong>
+        <!---->273 contributions in the last year<!---->
+      </strong>
+    </a>  
+  </span>
+</p>
+<div class="calendar">
+  <img src="https://ghchart.rshah.org/409ba5/${username}" alt="2016rshah's Blue Github Chart" style="width:100%;padding:8px"/>
+</div>
+`
+
+const repos = `
+
+`
+
+const mainContent = 
+`
+<h2 class="pvs-header__title text-heading-large">
+<!---->
+<span aria-hidden="true">Contributions</span>
+${contributions}
+<!---->
+</h2>
+<h2 class="pvs-header__title text-heading-large">
+<!---->
+<span aria-hidden="true">Repositories</span>
+<!---->
+</h2>
+`
+const isMac = window.navigator.userAgentData.platform === "macOS";
+const isWin = window.navigator.userAgentData.platform === "Windows";
+console.log(window.navigator.userAgentData.platform)
+let githubContentSection = "Error"
+if (isWin) {
+  githubContentSection = `
+      <div class="pvs-header__container">
+        <div>
+          <div>
+            <div class="pvs-header__title-container">
+              <h2 class="pv-profile-section__card-heading pvs-header__title">
+                <!---->
+                <span aria-hidden="true">GitHub</span>
+                <!---->
+              </h2>
+              ${mainContent}
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>`;
+  `;
+} else if (isMac){
+  githubContentSection = `
+    <!---->
+    <div id="experience" class="pv-profile-card-anchor"></div>
+    <!---->
+    <div class="pvs-header__container">
+    <div>
+    <div>
+    <div class="pvs-header__title-container">
+        <h2 class="pvs-header__title text-heading-large">
+          <span aria-hidden="true"><!---->GitHub<!----></span><span class="visually-hidden"><!---->GitHub<!----></span>
+        </h2>
+        ${mainContent}
+    <!----><!---->      </div>
+    <!---->    </div>
+    <!---->  </div>
+    </div>
+`;
+}
 
-const ghSection = document.createElement('div');
-ghSection.className = "github-section";
-ghSection.innerHTML = githubContent;
+const ghSection = document.createElement('section');
+ghSection.className = "github-section artdeco-card ember-view break-words pb3 mt4";
+ghSection.innerHTML = githubContentSection;
 
 const findPreviousSection = () => {
     // Zackary's machine (Windows 10) has the element ID as oc-background-section
@@ -38,10 +115,15 @@ const findPreviousSection = () => {
 const injectGHSection = () => {
   // Grab experience section
   const expSection = findPreviousSection();
-  
+  console.log(expSection)
   // Inject in to webpage
   if (expSection != null) {
-    expSection.parentNode.insertBefore(ghSection, expSection);
+    if(isWin){
+      expSection.parentNode.insertBefore(ghSection, expSection);
+    }
+    else if (isMac){
+      expSection.parentNode.parentNode.insertBefore(ghSection, expSection.parentNode);
+    }
     console.log("Injection Success!");
   } else {
     console.log("Injection failed :(");
@@ -50,14 +132,18 @@ const injectGHSection = () => {
 
 const attemptInject = () => {
   setTimeout(() => {
-    injectGHSection();
-    attemptInject();
+    if (attempt < 50) {
+      injectGHSection();
+      attempt++;
+      attemptInject();
+    }    
   }, 100);
 }
 
 const renderGitHubSection = () => {
   // Attempt to inject with github section
   attemptInject();
+  injectGHSection();
 }
 
 renderGitHubSection();
