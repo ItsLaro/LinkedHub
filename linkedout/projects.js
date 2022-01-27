@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import express from "express";
-const router = express.Router();
+const router = express.Router(),
+  GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 /* Gets the projects */
 /* By default, gets pinned */

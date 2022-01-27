@@ -6,8 +6,7 @@ import settings from "./settings.js";
 import projects from "./projects.js";
 
 const app = express(),
-  port = 3000,
-  GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+  port = 3000;
 
 app.use(cors());
 
