@@ -2,7 +2,6 @@ import fetch from "node-fetch";
 import express from "express";
 
 import settings from "./settings.js";
-import contributions from "./contributions.js";
 import projects from "./projects.js";
 
 const app = express(),
@@ -10,7 +9,6 @@ const app = express(),
   GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 app.use("/settings/:username", settings);
-app.use("/contributions/:username", contributions);
 app.get("/projects/:username", projects);
 
 app.listen(port, () => {
