@@ -1,8 +1,8 @@
 let attempt = 0;
-let results = "";
+let results = {};
 const username = "ItsLaro";
 
-fetch(`http://localhost:3000/settings/${username}`)
+fetch(`http://localhost:3000/projects/${username}`)
   .then((response) => {
     console.log("step 1");
     return response.json();
@@ -57,7 +57,6 @@ ${contributions}
 `;
 const isMac = window.navigator.userAgentData.platform === "macOS";
 const isWin = window.navigator.userAgentData.platform === "Windows";
-console.log(window.navigator.userAgentData.platform);
 let githubContentSection = "Error";
 if (isWin) {
   githubContentSection = `
@@ -118,7 +117,6 @@ const findPreviousSection = () => {
 const injectGHSection = () => {
   // Grab experience section
   const expSection = findPreviousSection();
-  console.log(expSection);
   // Inject in to webpage
   if (expSection != null) {
     if (isWin) {
