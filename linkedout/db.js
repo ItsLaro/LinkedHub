@@ -8,7 +8,7 @@ initializeApp({
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
   appId: process.env.APP_ID,
 });
-const db = getFirestore();
+export const db = getFirestore();
 
 export async function putSettings(in_tag, gh_username, projects) {
   try {
