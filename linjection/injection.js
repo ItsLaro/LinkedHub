@@ -10,6 +10,7 @@ const isWin = window.navigator.userAgentData.platform === "Windows";
 
 let pinnedRepos = [];
 let numRepos = 0;
+let numContributions = 0;
 let pinnedRepo1 = {};
 let githubProfileURL = "";
 let githubProfilePicURL = "";
@@ -23,7 +24,6 @@ let videoDemoURL = null;
 
 fetch(`http://localhost:3000/settings/${in_tag}`)
   .then((response) => {
-    console.log("Fetched");
     return response.json();
   })
   .then((data) => {
@@ -42,8 +42,18 @@ fetch(`http://localhost:3000/settings/${in_tag}`)
     isFetched = true;
     videoDemoURL = "https://www.youtube.com/embed/Mv_JULBp-c4" //TODO: Get from response
     
-    newHTML = generateHTML();
-    renderGitHubSection();
+    fetch(`http://localhost:3000/contributions/${username}`)
+    .then((response) => {
+    console.log("Fetched");
+    return response.json();
+    })
+    .then((data) => {
+      numContributions = data.totalContributions;
+
+      newHTML = generateHTML();
+      renderGitHubSection();
+    })
+
   })
   .catch((err) => {
     console.log(err);
@@ -56,7 +66,7 @@ const generateHTML = () => {
     <span aria-hidden="true">
       <a target="_self" href="https://github.com/${username}">
         <strong>
-          <!---->273 contributions in the last year<!---->
+          <!---->${numContributions} total contributions<!---->
         </strong>
       </a>
     </span>

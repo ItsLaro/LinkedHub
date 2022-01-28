@@ -23,7 +23,7 @@ router.get("/:username", function (req, res) {
   },
 }).then(res => res.text())
   .then(body => {
-      return res.send(JSON.stringify(JSON.parse(body).data.user.contributionsCollection.contributionCalendar))
+      return res.send(JSON.stringify(JSON.parse(body).data.user5.contributionsCollection.contributionCalendar))
   }) 
   .catch(error => console.error(error));
 });
