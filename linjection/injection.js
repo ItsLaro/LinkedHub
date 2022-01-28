@@ -22,6 +22,7 @@ let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
 let videoDemoURL = null;
+let youtubes = [];
 
 const mainFunction = () => {
   fetchInfo(() => {
@@ -51,7 +52,8 @@ function fetchInfo(runnable) {
       primaryLanguageName = pinnedRepo1.primaryLanguage.name;
       primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
       isFetched = true;
-      videoDemoURL = "https://www.youtube.com/embed/VtF2AgFSLAw"; //TODO: Get from response
+      youtubes = [data.youtube1, data.youtube2, data.youtube3, data.youtube4];
+      videoDemoURL = youtubes[0]; //TODO: Get from response
 
       fetch(`http://localhost:3000/contributions/${username}`)
         .then((response) => {
