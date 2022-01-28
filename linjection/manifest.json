@@ -14,6 +14,12 @@
     "action": {
         "default_popup": "popup.html"
     },
+    "web_accessible_resources": [
+        {
+            "resources": [ "button-code.js" ],
+            "matches": [ "https://*/*" ]
+        }
+    ],
     "host_permissions": [
         "http://www.linkedin.com/in/*",
         "http://localhost/*"

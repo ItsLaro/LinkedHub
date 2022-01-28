@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LinkedHub</title>
-    <link rel="stylesheet" href="popup.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" 
-    integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
-</head>
-<body>
+    <link rel="stylesheet" href="popup.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css"
+      integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7"
+      crossorigin="anonymous"
+    />
+    <script src="button-code.js" defer></script>
+  </head>
+  <body>
     <div class="link-header">
-        <img src="./icon_128.png" class="logo-icon">
-        <h1 class="logo">LinkedHub</h1>
+      <img src="./icon_128.png" class="logo-icon" />
+      <h1 class="logo">LinkedHub</h1>
     </div>
     <form method="GET">
-        <div class="github-section-lg section-lg">
-            <label class="textLabel" for="github_username">Github Username:</label>
-            <input type="text" id="github_username" class="input-lg" name="github_username">
-        </div>
-        <div class="linkedin-section-lg section-lg">
-            <label class="textLabel" for="linkedin_username">Linkedin Username:</label>
-            <input type="text" id="linkedin_username" class="input-lg" name="linkedin_username">
-        </div>
-        <div class="btn-container-lg">
-            <input type="submit" id="submit_btn" />
-        </div>
+      <div class="github-section-lg section-lg">
+        <label class="textLabel" for="github_username">Github Username:</label>
+        <input
+          type="text"
+          id="github_username"
+          class="input-lg"
+          name="github_username"
+        />
+      </div>
+      <div class="linkedin-section-lg section-lg">
+        <label class="textLabel" for="linkedin_username"
+          >Linkedin Username:</label
+        >
+        <input
+          type="text"
+          id="linkedin_username"
+          class="input-lg"
+          name="linkedin_username"
+        />
+      </div>
+      <div class="btn-container-lg">
+        <input type="submit" id="submit_btn" />
+      </div>
     </form>
-        <script defer>
-            const btn = document.getElementById("submit_btn");
-            btn.addEventListener("click", myFunction);
-            function myFunction(event) {
-                event.preventDefault();
-                const gh_username = document.getElementById("github_username").value;
-                const in_username = document.getElementById("linkedin_username").value;
-                console.log(JSON.stringify({gh_username}))
-
-                fetch("http://localhost:3000/settings/" + in_username, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({gh_username: gh_username})
-                }).then(function(response) {
-                    console.log(response)
-                }).catch(err => console.log(err));
-
-            }
-        </script>
-        <div class="link-content">
-            <p class="footnote"> Made with ❤️ at MHW Hack@Campus 🌴 </p>
-        </div>
-</body>
+    <div class="link-content">
+      <p class="footnote">Made with ❤️ at MHW Hack@Campus 🌴</p>
+    </div>
+  </body>
 </html>
