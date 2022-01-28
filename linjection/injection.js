@@ -51,7 +51,16 @@ function fetchInfo(runnable) {
       primaryLanguageName = pinnedRepo1.primaryLanguage.name;
       primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
       projectSubTitle = "Personal Project, using " + primaryLanguageName;
-      projectDatetime = pinnedRepo1.createdAt;
+      const date = new Date(pinnedRepo1.createdAt.substring(0, 10));
+      const ending =
+        date == 1 ? "st" : date == 2 ? "nd" : date == 3 ? "rd" : "th";
+      projectDatetime =
+        new Intl.DateTimeFormat("en-US", { month: "long" }).format(date) +
+        " " +
+        date.getDate() +
+        ending +
+        ", " +
+        date.getFullYear();
       projectDescription =
         pinnedRepo1.description === null ? "" : pinnedRepo1.description;
 
@@ -483,7 +492,15 @@ const bindData = (index, pinnedRepo) => {
   document.getElementById(
     "projectSubTitle"
   ).innerHTML = `Personal Project, using ${pinnedRepo.primaryLanguage.name}`;
-  document.getElementById("projectDatetime").innerHTML = pinnedRepo.createdAt;
+  const date = new Date(pinnedRepo.createdAt.substring(0, 10));
+  const ending = date == 1 ? "st" : date == 2 ? "nd" : date == 3 ? "rd" : "th";
+  document.getElementById("projectDatetime").innerHTML =
+    new Intl.DateTimeFormat("en-US", { month: "long" }).format(date) +
+    " " +
+    date.getDate() +
+    ending +
+    ", " +
+    date.getFullYear();
   document.getElementById("projectDescription").innerHTML =
     pinnedRepo.description === null ? "" : pinnedRepo.description;
   if (
