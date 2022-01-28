@@ -110,7 +110,7 @@ const generateHTML = () => {
     videoDemoURL === null
       ? `
   `
-      : `<iframe width="100%" height="220px" style="padding-right:20px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      : `<iframe id="videoDemo" width="100%" height="220px" style="padding-right:20px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   `;
 
   const btn_style = `
@@ -432,7 +432,7 @@ const nextRepo = () => {
       "Current Repo:",
       pinnedRepos[index].node
     );
-    bindData(pinnedRepos[index].node);
+    bindData(index, pinnedRepos[index].node);
   }
 };
 
@@ -448,7 +448,7 @@ const prevRepo = () => {
       "Current Repo:",
       pinnedRepos[index].node
     );
-    bindData(pinnedRepos[index].node);
+    bindData(index, pinnedRepos[index].node);
   }
 };
 
