@@ -315,7 +315,11 @@ const generateHTML = () => {
                   <span aria-hidden="true">GitHub</span>
                   <!---->
                 </h2>
-                ${githubProfileURL}
+                <a target="_self" href="https://github.com/${username}">
+                  <strong>
+                    <!---->${githubProfileURL}<!---->
+                  </strong>
+                </a>
                 ${mainContent}
               </div>
             </div>
