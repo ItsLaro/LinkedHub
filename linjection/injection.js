@@ -19,6 +19,7 @@ let projectDatetime = "";
 let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
+let videoDemoURL = null;
 
 fetch(`http://localhost:3000/settings/${in_tag}`)
   .then((response) => {
@@ -39,8 +40,7 @@ fetch(`http://localhost:3000/settings/${in_tag}`)
     primaryLanguageName = pinnedRepo1.primaryLanguage.name;
     primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
     isFetched = true;
-    console.log("Parsed");
-    console.log(pinnedRepo1);
+    videoDemoURL = "https://www.youtube.com/embed/Mv_JULBp-c4" //TODO: Get from response
     
     newHTML = generateHTML();
     renderGitHubSection();
@@ -73,105 +73,123 @@ const generateHTML = () => {
   </div>
   `;
 
+  const videoEmbed = videoDemoURL === null ? `
+  ` : `<iframe width="100%" height="412" style="padding-right:56px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  `;
+
+  const repo1 = `
+  <div class="display-flex flex-column full-width align-self-center">
+  <div class="display-flex flex-row justify-space-between">
+     <div class="display-flex flex-column full-width">
+        <div class="display-flex align-items-center">
+           <span class="t-bold mr1
+              ">
+              <span aria-hidden="true">
+                 <!---->${projectTitle}<!---->
+              </span>
+              <span class="visually-hidden">
+                 <!---->${projectTitle}<!---->
+              </span>
+           </span>
+           <!----><!----><!---->        
+        </div>
+        <span class="t-14 t-normal">
+           <span aria-hidden="true">
+              <!---->${projectSubTitle}<!---->
+           </span>
+           <span class="visually-hidden">
+              <!---->${projectSubTitle}<!---->
+           </span>
+        </span>
+        <span class="t-14 t-normal t-black--light">
+           <span aria-hidden="true">
+              <!---->${projectDatetime}<!---->
+           </span>
+           <span class="visually-hidden">
+              <!---->${projectDatetime}<!---->
+           </span>
+        </span>
+     </div>
+     <!---->
+     <div class="pvs-entity__action-container">
+        <!---->      
+     </div>
+  </div>
+  <div class="pvs-list__outer-container">
+     <!---->    
+     <ul class="pvs-list
+        ">
+        <li class=" ">
+           <div class="pvs-list__outer-container">
+              <!---->    
+              <ul class="pvs-list
+                 ">
+                 <li class="pvs-list__item--with-top-padding ">
+                    <div class="display-flex ">
+                       <div class="display-flex full-width">
+                          <div class="pv-shared-text-with-see-more t-14 t-normal t-black display-flex align-items-center">
+                             <div class="inline-show-more-text inline-show-more-text--is-collapsed" style="line-height:1.9rem;max-height:3.8rem;">
+                                <span aria-hidden="true">
+                                   <!---->${projectDescription}<!---->
+                                </span>
+                                <span class="visually-hidden">
+                                   <!---->${projectDescription}<!---->
+                                </span>
+                                <!---->
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="display-flex ">
+                       ${videoEmbed}
+                    </div>
+                 </li>
+              </ul>
+              <!---->
+           </div>
+        </li>
+     </ul>
+     <!---->
+  </div>
+</div>
+  `
+
   const repos = 
   `
   <p class="pvs-header__subtitle text-body-small">
-    <span aria-hidden="true">
-      <a target="_self" href="https://github.com/${username}?tab=repositories">
+  <span aria-hidden="true">
+     <a target="_self" href="https://github.com/${username}?tab=repositories">
         <strong>
-          <!---->${numRepos} featured projects<!---->
+           <!---->${numRepos} featured projects<!---->
         </strong>
-      </a>
-    </span>
-    <span class="visually-hidden">
-    <a target="_self" href="https://github.com/${username}?tab=repositories">
-    <strong>
-          <!---->${numRepos} featured projects<!---->
+     </a>
+  </span>
+  <span class="visually-hidden">
+     <a target="_self" href="https://github.com/${username}?tab=repositories">
+        <strong>
+           <!---->${numRepos} featured projects<!---->
         </strong>
-      </a>  
-    </span>
-  </p>
-  <li class="artdeco-list__item pvs-list__item--line-separated pvs-list__item--one-column">
-                <!----><div class="pvs-entity
-    pvs-entity--padded pvs-list__item--no-padding-when-nested
-    
-    
-    ">
-  <div>
+     </a>
+  </span>
+</p>
+<li class="artdeco-list__item pvs-list__item--line-separated pvs-list__item--one-column">
+  <!---->
+  <div class="pvs-entity
+     pvs-entity--padded pvs-list__item--no-padding-when-nested
+     ">
+     <div>
         <a data-field="experience_company_logo" class="optional-action-target-wrapper display-flex" target="_self" href="${githubProfileURL}">
-        <div class="ivm-image-view-model  pvs-entity__image ">
-    <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex
-    
-    ">
-<!---->      <img width="48" src="${githubProfilePicURL}" loading="lazy" height="48" alt="Facebook logo" id="ember143" class="ivm-view-attr__img--centered EntityPhoto-square-3  lazy-image ember-view">
-</div>
+           <div class="ivm-image-view-model  pvs-entity__image ">
+              <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex
+                 ">
+                 <!---->      <img width="48" src="${githubProfilePicURL}" loading="lazy" height="48" alt="Facebook logo" id="ember143" class="ivm-view-attr__img--centered EntityPhoto-square-3  lazy-image ember-view">
+              </div>
+           </div>
+        </a>
+     </div>
+      ${repo1}
   </div>
-    </a>
-
-  </div>
-
-  <div class="display-flex flex-column full-width align-self-center">
-    <div class="display-flex flex-row justify-space-between">
-        <div class="display-flex flex-column full-width">
-    
-        <div class="display-flex align-items-center">
-            <span class="t-bold mr1
-                ">
-              <span aria-hidden="true"><!---->${projectTitle}<!----></span><span class="visually-hidden"><!---->${projectTitle}<!----></span>
-            </span>
-<!----><!----><!---->        </div>
-          <span class="t-14 t-normal">
-            <span aria-hidden="true"><!---->${projectSubTitle}<!----></span><span class="visually-hidden"><!---->${projectSubTitle}<!----></span>
-          </span>
-          <span class="t-14 t-normal t-black--light">
-            <span aria-hidden="true"><!---->${projectDatetime}<!----></span><span class="visually-hidden"><!---->${projectDatetime}<!----></span>
-          </span>
-  </div>
-
-
-<!---->
-      <div class="pvs-entity__action-container">
-<!---->      </div>
-    </div>
-
-      <div class="pvs-list__outer-container">
-<!---->    <ul class="pvs-list
-        
-        ">
-        <li class=" ">
-                <div class="pvs-list__outer-container">
-<!---->    <ul class="pvs-list
-        
-        ">
-        <li class="pvs-list__item--with-top-padding ">
-                <div class="display-flex ">
-    <div class="display-flex full-width">
-    
-      
-  <div class="pv-shared-text-with-see-more t-14 t-normal t-black display-flex align-items-center">
-    <div class="inline-show-more-text inline-show-more-text--is-collapsed" style="line-height:1.9rem;max-height:3.8rem;">
-
-    <span aria-hidden="true"><!---->${projectDescription}<!----></span><span class="visually-hidden"><!---->${projectDescription}<!----></span>
-
-<!----></div>
-  </div>
-
-  
-  </div>
-
-</div>
-
-        </li>
-    </ul>
-<!----></div>
-
-        </li>
-    </ul>
-<!----></div>
-  </div>
-</div>
-
-        </li>
+</li>
   `
 
   const mainContent = `
@@ -226,17 +244,16 @@ const generateHTML = () => {
                         <a class="optional-action-target-wrapper artdeco-button artdeco-button--tertiary artdeco-button--3 artdeco-button--muted artdeco-button--circle
         inline-flex justify-center align-self-flex-start
         
-        " target="_self" href="https://www.linkedin.com/in/ivanreor/add-edit/POSITION/?profileFormEntryPoint=PROFILE_SECTION&amp;trackingId=wDjNYanqSp6hfY3%2BGqjxPw%3D%3D&amp;desktopBackground=MAIN_PROFILE">
+        " target="_self" href="">
         <div class="pvs-navigation__icon">
-          <li-icon type="add-icon" size="medium" role="img" aria-label="Add new experience"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+          <li-icon type="add-icon" size="medium" role="img" aria-label="Add new project"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
     <path d="M21 13h-8v8h-2v-8H3v-2h8V3h2v8h8z"></path>
   </svg></li-icon>
         </div>
   <!---->  </a>
           <a class="optional-action-target-wrapper artdeco-button artdeco-button--tertiary artdeco-button--3 artdeco-button--muted artdeco-button--circle
         inline-flex justify-center align-self-flex-start
-        
-        " target="_self" href="https://www.linkedin.com/in/ivanreor/details/experience?profileUrn=urn%3Ali%3Afsd_profile%3AACoAACQJT68Bj1zc4pWIsWCiTKlYUzzDVLzpqi8">
+        " target="_self" href="">
         <div class="pvs-navigation__icon">
           <li-icon type="pencil-icon" size="medium" role="img" aria-label="View experience detail screen"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
     <path d="M21.13 2.86a3 3 0 00-4.17 0l-13 13L2 22l6.19-2L21.13 7a3 3 0 000-4.16zM6.77 18.57l-1.35-1.34L16.64 6 18 7.35z"></path>
@@ -320,4 +337,3 @@ const renderGitHubSection = () => {
   attemptInject();
   injectGHSection();
 };
-
