@@ -51,7 +51,7 @@ function fetchInfo(runnable) {
       primaryLanguageName = pinnedRepo1.primaryLanguage.name;
       primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
       isFetched = true;
-      videoDemoURL = "https://www.youtube.com/embed/Mv_JULBp-c4"; //TODO: Get from response
+      videoDemoURL = "https://www.youtube.com/embed/VtF2AgFSLAw"; //TODO: Get from response
 
       fetch(`http://localhost:3000/contributions/${username}`)
         .then((response) => {
@@ -71,7 +71,7 @@ function fetchInfo(runnable) {
         });
     })
     .catch((err) => {
-      if (document.getElementById("github-section") !== null){
+      if (document.getElementById("github-section") !== null) {
         document.getElementById("github-section").remove();
         console.log("Fetch Failed. Removed stale section!");
       }
@@ -397,9 +397,9 @@ const attemptInject = () => {
     if (in_tag != window.location.pathname.split("/")[2]) {
       console.log("NEED A rerender");
       isRerender = true;
-      if (document.getElementById("github-section") !== null){
+      if (document.getElementById("github-section") !== null) {
         document.getElementById("github-section").remove();
-        console.log("Removed stale github section")
+        console.log("Removed stale github section");
       }
       mainFunction();
     }
