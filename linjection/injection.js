@@ -234,7 +234,7 @@ const generateHTML = () => {
                        ${videoEmbed}
                        <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;width: 400px;padding-left:20px;transform:translate(-20px,0);">
                            <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:14px;">${projectDescription}</p>
-                           <button class="btn-lh">Inquire</button>
+                           <button class="btn-lh" id="inquireButton">Inquire</button>
                        </div>
                        <button id="nextButton" class="btn-lh">></button>
                     </div>
@@ -401,6 +401,9 @@ const injectGHSection = () => {
       console.log("Injection Success!");
       document.getElementById("nextButton").addEventListener("click", nextRepo);
       document.getElementById("prevButton").addEventListener("click", prevRepo);
+      document
+        .getElementById("inquireButton")
+        .addEventListener("click", messageBtnClick);
 
       isRerender = false;
     } else {
@@ -448,12 +451,11 @@ const nextRepo = () => {
       pinnedRepos[index].node
     );
     bindData(index, pinnedRepos[index].node);
-    console.log("Next Repo:", pinnedRepos[index+1])
+    console.log("Next Repo:", pinnedRepos[index + 1]);
     document.getElementById("prevButton").style = "display: show;";
-    if (index == numRepos - 1){
+    if (index == numRepos - 1) {
       document.getElementById("nextButton").style = "display: none;";
-    } 
-    else {
+    } else {
       document.getElementById("nextButton").style = "display: show;";
     }
   }
@@ -473,7 +475,7 @@ const prevRepo = () => {
     );
     bindData(index, pinnedRepos[index].node);
     document.getElementById("nextButton").style = "display: show";
-    if (index == 0){
+    if (index == 0) {
       document.getElementById("prevButton").style = "display: none";
     } else {
       document.getElementById("prevButton").style = "display: show";
@@ -515,3 +517,7 @@ const bindData = (index, pinnedRepo) => {
   document.getElementById("profilePic").src = pinnedRepo.owner.avatarUrl;
   // primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
 };
+
+function messageBtnClick() {
+  document.getElementsByClassName("message-anywhere-button")[0].click();
+}
