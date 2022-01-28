@@ -1,7 +1,9 @@
+import bodyParser from "body-parser";
 import express from "express";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, putDefaultProjects } from "./db.js";
 const router = express.Router();
+const jsonParser = bodyParser.json()
 
 /* Gets the user settings */
 // To use: /settings/zackary-santana
@@ -25,8 +27,9 @@ router.get("/:linkedin_tag", async function (req, res) {
 });
 
 /* Change user settings */
-router.post("/:linkedin_tag", function (req, res) {
-  const gh_username = req.body;
+router.post("/:linkedin_tag",jsonParser, function (req, res) {
+  const gh_username = req.body.gh_username;
+  console.log(JSON.stringify(req.body))
 
   setDoc(
     doc(db, "users", req.params.linkedin_tag),
