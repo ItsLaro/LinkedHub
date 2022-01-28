@@ -195,7 +195,7 @@ const generateHTML = () => {
                     <div class="display-flex" style="align-items: center;justify-content:center;">
                     <button id="prevButton" style="${btn_style}transform:translate(-20px,0);"><</button>
                        ${videoEmbed}
-                       <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;">
+                       <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;width: 400px;">
                            <p id="projectDescription" style="padding-top: 20%;text-align:center;">${projectDescription}</p>
                            <button style="${btn_style}">Inquire</button>
                        </div>
@@ -384,8 +384,8 @@ const injectGHSection = () => {
         );
       }
       console.log("Injection Success!");
-      document.getElementById("nextButton").addEventListener("click", nextRepo)
-      document.getElementById("prevButton").addEventListener("click", prevRepo)
+      document.getElementById("nextButton").addEventListener("click", nextRepo);
+      document.getElementById("prevButton").addEventListener("click", prevRepo);
 
       isRerender = false;
     } else {
@@ -421,20 +421,36 @@ const renderGitHubSection = () => {
 };
 
 const nextRepo = () => {
-  if (index < numRepos-1) {
+  if (index < numRepos - 1) {
     index++;
-    console.log("Next Clicked!", "Repos", pinnedRepos, "Index:", index, "Current Repo:", pinnedRepos[index].node)
-    bindData(index, pinnedRepos[index].node)
+    console.log(
+      "Next Clicked!",
+      "Repos",
+      pinnedRepos,
+      "Index:",
+      index,
+      "Current Repo:",
+      pinnedRepos[index].node
+    );
+    bindData(pinnedRepos[index].node);
   }
-}
+};
 
-const prevRepo = () =>{
-  if (index > 0){
+const prevRepo = () => {
+  if (index > 0) {
     index--;
-    console.log("Prev Clicked!", "Repos", pinnedRepos, "Index:", index, "Current Repo:", pinnedRepos[index].node)
-    bindData(index, pinnedRepos[index].node)
+    console.log(
+      "Prev Clicked!",
+      "Repos",
+      pinnedRepos,
+      "Index:",
+      index,
+      "Current Repo:",
+      pinnedRepos[index].node
+    );
+    bindData(pinnedRepos[index].node);
   }
-}
+};
 
 const bindData = (index, pinnedRepo) => {
   document.getElementById("projectTitle").innerHTML = pinnedRepo.name;
@@ -446,6 +462,4 @@ const bindData = (index, pinnedRepo) => {
   document.getElementById("profilePic").src = pinnedRepo.owner.avatarUrl;
   // primaryLanguageName = pinnedRepo1.primaryLanguage.name;
   // primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
-}
-
-
+};
