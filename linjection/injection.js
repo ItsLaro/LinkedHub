@@ -101,7 +101,7 @@ const generateHTML = () => {
     videoDemoURL === null
       ? `
   `
-      : `<iframe width="100%" height="412" style="padding-right:20px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      : `<iframe width="100%" height="220px" style="padding-right:20px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   `;
 
   const btn_style = `
@@ -184,9 +184,9 @@ const generateHTML = () => {
                  ">
                  <li class="pvs-list__item--with-top-padding ">
                     <div class="display-flex" style="align-items: center;justify-content:center;">
-                    <button style="${btn_style}transform:translate(-20px,0);"><</button>
+                    <button style="${btn_style}transform:translate(-50px,0);"><</button>
                        ${videoEmbed}
-                       <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;">
+                       <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;min-height: 200px;">
                            <p style="padding-top: 20%;text-align:center;">${projectDescription}</p>
                            <button style="${btn_style}">Inquire</button>
                        </div>
