@@ -162,13 +162,32 @@ const generateHTML = () => {
            </span>
            <!----><!----><!---->        
         </div>
-        <span class="t-14 t-normal">
+        <span class="t-14 t-normal" id="projectSubTitleContainer">
            <span id="projectSubTitle" aria-hidden="true">
               <!---->${projectSubTitle}<!---->
            </span>
            <span class="visually-hidden">
               <!---->${projectSubTitle}<!---->
            </span>
+           <style>
+              #projectSubTitle {
+                position: relative;
+              }
+              #projectSubTitleContainer {
+                --primary: ${primaryLanguageColor};
+              }
+              #projectSubTitle::after {
+                background-color: var(--primary);
+                display: inline-block;
+                position: absolute;
+                top: 4px;
+                right: -20px;
+                border-radius: 50%;
+                content: '';
+                width: 12px;
+                height: 12px;
+              }
+           </style>
         </span>
         <span class="t-14 t-normal t-black--light">
            <span id="projectDatetime" aria-hidden="true">
@@ -458,7 +477,12 @@ const prevRepo = () => {
 
 const bindData = (index, pinnedRepo) => {
   document.getElementById("projectTitle").innerHTML = pinnedRepo.name;
-  document.getElementById("projectSubTitle").innerHTML = `Personal Project, using ${pinnedRepo.primaryLanguage.name}`
+  document.getElementById("projectSubTitleContainer").style =
+    "--primary: " + pinnedRepo.primaryLanguage.color + " !important";
+
+  document.getElementById(
+    "projectSubTitle"
+  ).innerHTML = `Personal Project, using ${pinnedRepo.primaryLanguage.name}`;
   document.getElementById("projectDatetime").innerHTML = pinnedRepo.createdAt;
   document.getElementById("projectDescription").innerHTML =
     pinnedRepo.description === null ? "" : pinnedRepo.description;
