@@ -401,9 +401,20 @@ const injectGHSection = () => {
       console.log("Injection Success!");
       document.getElementById("nextButton").addEventListener("click", nextRepo);
       document.getElementById("prevButton").addEventListener("click", prevRepo);
-      document
-        .getElementById("inquireButton")
-        .addEventListener("click", messageBtnClick);
+      document.getElementById("inquireButton").addEventListener("click", () => {
+        messageBtnClick();
+        setTimeout(() => {
+          document.execCommand(
+            "insertHTML",
+            false,
+            "Hey I saw your project, " +
+              projectTitle +
+              ", written in " +
+              primaryLanguageName +
+              ". It looked really cool and I was wondering if you could talk about it soon with me."
+          );
+        }, 300);
+      });
 
       isRerender = false;
     } else {
