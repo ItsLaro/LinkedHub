@@ -8,6 +8,10 @@ body {
   width: 384px;
   position: relative;
 }
+
+html {
+  padding-right: 25px;
+}
 h1 {
   font-family: "Menlo", sans-serif;
   font-size: 22px;
@@ -110,5 +114,5 @@ img {
 .logo-icon {
   position: absolute;
   left: 3.5%;
-  top: 8%;
+  top: 7%;
 }
