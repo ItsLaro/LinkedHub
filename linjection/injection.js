@@ -315,6 +315,7 @@ const generateHTML = () => {
                   <span aria-hidden="true">GitHub</span>
                   <!---->
                 </h2>
+                ${githubProfileURL}
                 ${mainContent}
               </div>
             </div>
@@ -337,6 +338,22 @@ const generateHTML = () => {
                 </span>
              </h2>
              <!----><!---->      
+             <p class="pvs-header__subtitle text-body-small">
+    <span aria-hidden="true">
+      <a target="_self" href="https://github.com/${username}">
+        <strong>
+          <!---->${githubProfileURL}<!---->
+        </strong>
+      </a>
+    </span>
+    <span class="visually-hidden">
+      <a target="_self" href="https://github.com/${username}">
+        <strong>
+          <!---->${githubProfileURL}<!---->
+        </strong>
+      </a>  
+    </span>
+  </p>
           </div>
           <!---->    
        </div>
