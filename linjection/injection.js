@@ -1,9 +1,9 @@
 let attempt = 0;
 let isFetched = false;
 let username = "";
-const in_tag = window.location.pathname.split("/")[2];
+let in_tag = window.location.pathname.split("/")[2];
 
-let newHTML = ""
+let newHTML = "";
 
 const isMac = window.navigator.userAgentData.platform === "macOS";
 const isWin = window.navigator.userAgentData.platform === "Windows";
@@ -22,45 +22,48 @@ let primaryLanguageName = "";
 let primaryLanguageColor = "";
 let videoDemoURL = null;
 
-fetch(`http://localhost:3000/settings/${in_tag}`)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    username = data.gh_username;
-    pinnedRepos = data.projects;
-    numRepos = pinnedRepos.length;
-    pinnedRepo1 = pinnedRepos[0].node;
-    githubProfileURL = pinnedRepo1.owner.url;
-    githubProfilePicURL = pinnedRepo1.owner.avatarUrl;
-    projectTitle = pinnedRepo1.name;
-    projectSubTitle = "Personal Project";
-    projectDatetime = pinnedRepo1.createdAt;
-    projectDescription = pinnedRepo1.description === null ? "" : pinnedRepo1.description;
-    primaryLanguageName = pinnedRepo1.primaryLanguage.name;
-    primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
-    isFetched = true;
-    videoDemoURL = "https://www.youtube.com/embed/Mv_JULBp-c4" //TODO: Get from response
-    
-    fetch(`http://localhost:3000/contributions/${username}`)
+const mainFunction = () => {
+  in_tag = window.location.pathname.split("/")[2];
+  fetch(`http://localhost:3000/settings/${in_tag}`)
     .then((response) => {
-    console.log("Fetched");
-    return response.json();
+      return response.json();
     })
     .then((data) => {
-      numContributions = data.totalContributions;
+      username = data.gh_username;
+      pinnedRepos = data.projects;
+      numRepos = pinnedRepos.length;
+      pinnedRepo1 = pinnedRepos[0].node;
+      githubProfileURL = pinnedRepo1.owner.url;
+      githubProfilePicURL = pinnedRepo1.owner.avatarUrl;
+      projectTitle = pinnedRepo1.name;
+      projectSubTitle = "Personal Project";
+      projectDatetime = pinnedRepo1.createdAt;
+      projectDescription =
+        pinnedRepo1.description === null ? "" : pinnedRepo1.description;
+      primaryLanguageName = pinnedRepo1.primaryLanguage.name;
+      primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
+      isFetched = true;
+      videoDemoURL = "https://www.youtube.com/embed/Mv_JULBp-c4"; //TODO: Get from response
 
-      newHTML = generateHTML();
-      renderGitHubSection();
+      fetch(`http://localhost:3000/contributions/${username}`)
+        .then((response) => {
+          console.log("Fetched");
+          return response.json();
+        })
+        .then((data) => {
+          numContributions = data.totalContributions;
+
+          newHTML = generateHTML();
+          renderGitHubSection();
+        });
     })
-
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    .catch((err) => {
+      console.log(err);
+    });
+};
+mainFunction();
 
 const generateHTML = () => {
-
   const contributions = `
   <p class="pvs-header__subtitle text-body-small">
     <span aria-hidden="true">
@@ -83,8 +86,11 @@ const generateHTML = () => {
   </div>
   `;
 
-  const videoEmbed = videoDemoURL === null ? `
-  ` : `<iframe width="100%" height="412" style="padding-right:56px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  const videoEmbed =
+    videoDemoURL === null
+      ? `
+  `
+      : `<iframe width="100%" height="412" style="padding-right:56px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   `;
 
   const repo1 = `
@@ -162,10 +168,9 @@ const generateHTML = () => {
      <!---->
   </div>
 </div>
-  `
+  `;
 
-  const repos = 
-  `
+  const repos = `
   <p class="pvs-header__subtitle text-body-small">
   <span aria-hidden="true">
      <a target="_self" href="https://github.com/${username}?tab=repositories">
@@ -200,7 +205,7 @@ const generateHTML = () => {
       ${repo1}
   </div>
 </li>
-  `
+  `;
 
   const mainContent = `
   <h2 class="pvs-header__title text-heading-large">
@@ -294,7 +299,7 @@ const generateHTML = () => {
   ghSection.innerHTML = githubContentSection;
 
   return ghSection;
-}
+};
 
 const findPreviousSection = () => {
   // Zackary's machine (Windows 10) has the element ID as oc-background-section
@@ -315,6 +320,7 @@ const injectGHSection = () => {
   // Inject in to webpage
   if (expSection != null) {
     if (document.getElementById("github-section") == null) {
+      mainFunction(false, false);
       if (isWin) {
         expSection.parentNode.insertBefore(newHTML, expSection);
       } else if (isMac) {
@@ -325,6 +331,10 @@ const injectGHSection = () => {
       }
       console.log("Injection Success!");
     } else {
+      if (in_tag != window.location.pathname.split("/")[2]) {
+        console.log("NEED A rerender");
+        mainFunction(false, false);
+      }
       console.log("Injection Succeeded already!");
     }
   } else {
@@ -336,9 +346,8 @@ const attemptInject = () => {
   setTimeout(() => {
     if (isFetched) {
       injectGHSection();
-      attempt++;
     }
-    attemptInject();
+    attemptInject(false);
   }, 100);
 };
 
