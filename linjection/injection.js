@@ -1,15 +1,14 @@
 let attempt = 0;
 let results = "";
 const username = "ItsLaro";
+const in_tag = window.location.pathname.split("/")[2];
 
-fetch(`http://localhost:3000/settings/${username}`)
+fetch(`http://localhost:3000/settings/${in_tag}`)
   .then((response) => {
-    console.log("step 1");
     return response.json();
   })
   .then((data) => {
-    // Work with JSON data here
-    console.log(data);
+    username = data.gh_username;
     results = data;
   })
   .catch((err) => {
