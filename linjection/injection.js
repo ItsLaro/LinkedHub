@@ -1,5 +1,5 @@
 let attempt = 0;
-let results = "";
+let results = {};
 const username = "ItsLaro";
 const in_tag = window.location.pathname.split("/")[2];
 
@@ -56,7 +56,6 @@ ${contributions}
 `;
 const isMac = window.navigator.userAgentData.platform === "macOS";
 const isWin = window.navigator.userAgentData.platform === "Windows";
-console.log(window.navigator.userAgentData.platform);
 let githubContentSection = "Error";
 if (isWin) {
   githubContentSection = `
@@ -117,7 +116,6 @@ const findPreviousSection = () => {
 const injectGHSection = () => {
   // Grab experience section
   const expSection = findPreviousSection();
-  console.log(expSection);
   // Inject in to webpage
   if (expSection != null) {
     if (isWin) {
@@ -136,11 +134,10 @@ const injectGHSection = () => {
 
 const attemptInject = () => {
   setTimeout(() => {
-    if (attempt < 50) {
+    if (fetched) {
       injectGHSection();
-      attempt++;
-      attemptInject();
     }
+    attemptInject();
   }, 100);
 };
 
