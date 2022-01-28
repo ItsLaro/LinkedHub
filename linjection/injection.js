@@ -320,7 +320,6 @@ const injectGHSection = () => {
   // Inject in to webpage
   if (expSection != null) {
     if (document.getElementById("github-section") == null) {
-      mainFunction(false, false);
       if (isWin) {
         expSection.parentNode.insertBefore(newHTML, expSection);
       } else if (isMac) {
@@ -333,7 +332,6 @@ const injectGHSection = () => {
     } else {
       if (in_tag != window.location.pathname.split("/")[2]) {
         console.log("NEED A rerender");
-        mainFunction(false, false);
       }
       console.log("Injection Succeeded already!");
     }
@@ -347,7 +345,7 @@ const attemptInject = () => {
     if (isFetched) {
       injectGHSection();
     }
-    attemptInject(false);
+    attemptInject();
   }, 100);
 };
 
