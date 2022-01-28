@@ -26,7 +26,15 @@ router.get("/:linkedin_tag", async function (req, res) {
 
 /* Change user settings */
 router.post("/:linkedin_tag", function (req, res) {
-  res.send("This is a response");
+  const gh_username = req.body;
+
+  setDoc(
+    doc(db, "users", req.params.linkedin_tag),
+    {
+      gh_username,
+    },
+    { merge: true }
+  );
 });
 
 export default router;
