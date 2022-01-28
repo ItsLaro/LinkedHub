@@ -1,5 +1,6 @@
 let isFetched = false;
 let isRerender = false;
+let index = 0;
 
 let username = "";
 let in_tag = window.location.pathname.split("/")[2];
@@ -38,6 +39,7 @@ function fetchInfo(runnable) {
       return response.json();
     })
     .then((data) => {
+      index = 0;
       username = data.gh_username;
       pinnedRepos = data.projects;
       numRepos = pinnedRepos.length;
@@ -149,7 +151,7 @@ const generateHTML = () => {
         <div class="display-flex align-items-center">
            <span class="t-bold mr1
               ">
-              <span aria-hidden="true">
+              <span id="projectTitle" aria-hidden="true">
                  <!---->${projectTitle}<!---->
               </span>
               <span class="visually-hidden">
@@ -159,7 +161,7 @@ const generateHTML = () => {
            <!----><!----><!---->        
         </div>
         <span class="t-14 t-normal">
-           <span aria-hidden="true">
+           <span id="projectSubTitle" aria-hidden="true">
               <!---->${projectSubTitle}<!---->
            </span>
            <span class="visually-hidden">
@@ -167,7 +169,7 @@ const generateHTML = () => {
            </span>
         </span>
         <span class="t-14 t-normal t-black--light">
-           <span aria-hidden="true">
+           <span id="projectDatetime" aria-hidden="true">
               <!---->${projectDatetime}<!---->
            </span>
            <span class="visually-hidden">
@@ -191,13 +193,13 @@ const generateHTML = () => {
                  ">
                  <li class="pvs-list__item--with-top-padding ">
                     <div class="display-flex" style="align-items: center;justify-content:center;">
-                    <button style="${btn_style}transform:translate(-50px,0);"><</button>
+                    <button id="prevButton" style="${btn_style}transform:translate(-20px,0);"><</button>
                        ${videoEmbed}
-                       <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;min-height: 200px;">
-                           <p style="padding-top: 20%;text-align:center;">${projectDescription}</p>
+                       <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;">
+                           <p id="projectDescription" style="padding-top: 20%;text-align:center;">${projectDescription}</p>
                            <button style="${btn_style}">Inquire</button>
                        </div>
-                       <button style="${btn_style}">></button>
+                       <button id="nextButton" style="${btn_style}">></button>
                     </div>
                  </li>
               </ul>
@@ -233,11 +235,11 @@ const generateHTML = () => {
      pvs-entity--padded pvs-list__item--no-padding-when-nested
      ">
      <div>
-        <a data-field="experience_company_logo" class="optional-action-target-wrapper display-flex" target="_self" href="${githubProfileURL}">
+        <a id="profileURL" data-field="experience_company_logo" class="optional-action-target-wrapper display-flex" target="_self" href="${githubProfileURL}">
            <div class="ivm-image-view-model  pvs-entity__image ">
               <div class="ivm-view-attr__img-wrapper ivm-view-attr__img-wrapper--use-img-tag display-flex
                  ">
-                 <!---->      <img width="48" src="${githubProfilePicURL}" loading="lazy" height="48" alt="Facebook logo" id="ember143" class="ivm-view-attr__img--centered EntityPhoto-square-3  lazy-image ember-view">
+                 <!---->      <img id="profilePic" width="48" src="${githubProfilePicURL}" loading="lazy" height="48" alt="Facebook logo" id="ember143" class="ivm-view-attr__img--centered EntityPhoto-square-3  lazy-image ember-view">
               </div>
            </div>
         </a>
@@ -382,6 +384,9 @@ const injectGHSection = () => {
         );
       }
       console.log("Injection Success!");
+      document.getElementById("nextButton").addEventListener("click", nextRepo)
+      document.getElementById("prevButton").addEventListener("click", prevRepo)
+
       isRerender = false;
     } else {
       console.log("Injection Succeeded already!");
@@ -414,3 +419,32 @@ const renderGitHubSection = () => {
   attemptInject();
   injectGHSection();
 };
+
+const nextRepo = () => {
+  if (index < numRepos-1) {
+    index++;
+    console.log("Next Clicked!", "Repos", pinnedRepos, "Index:", index, "Current Repo:", pinnedRepos[index].node)
+    bindData(pinnedRepos[index].node)
+  }
+}
+
+const prevRepo = () =>{
+  if (index > 0){
+    index--;
+    console.log("Prev Clicked!", "Repos", pinnedRepos, "Index:", index, "Current Repo:", pinnedRepos[index].node)
+    bindData(pinnedRepos[index].node)
+  }
+}
+
+const bindData = (pinnedRepo) => {
+  document.getElementById("projectTitle").innerHTML = pinnedRepo.name;
+  document.getElementById("projectDatetime").innerHTML = pinnedRepo.createdAt;
+  document.getElementById("projectDescription").innerHTML = pinnedRepo.description === null ? "" : pinnedRepo.description;
+  // document.getElementById("videoDemo").src = "https://www.youtube.com/embed/Mv_JULBp-c4";
+  document.getElementById("profileURL").href = pinnedRepo.owner.url;
+  document.getElementById("profilePic").src = pinnedRepo.owner.avatarUrl;
+  // primaryLanguageName = pinnedRepo1.primaryLanguage.name;
+  // primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
+}
+
+
