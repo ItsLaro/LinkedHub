@@ -428,7 +428,7 @@ const injectGHSection = () => {
               projectTitle +
               ", written in " +
               primaryLanguageName +
-              ". It looked really cool and I was wondering if you could talk about it soon with me."
+              ". It looked really cool and I was wondering if you could tell me more about it."
           );
         }, 450);
       });
