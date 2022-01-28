@@ -178,7 +178,7 @@ const generateHTML = () => {
            <!----><!----><!---->        
         </div>
         ${btn_style}
-        <span class="t-14 t-normal" id="projectSubTitleContainer>
+        <span class="t-14 t-normal" id="projectSubTitleContainer">
            <span id="projectSubTitle" aria-hidden="true">
               <!---->${projectSubTitle}<!---->
            </span>
