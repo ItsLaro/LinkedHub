@@ -33,7 +33,10 @@ router.post("/:linkedin_tag", async function (req, res) {
 
     const newProject = await getProject(data.gh_username, project_name);
     body.projects[replaceIndex] = newProject;
-    setDoc(doc(db, "users", req.params.linkedin_tag), {});
+    setDoc(doc(db, "users", req.params.linkedin_tag), {
+      gh_username,
+      projects: body.projects,
+    });
     if (data.hasOwnProperty("projects")) {
       res.json({
         gh_username: data.gh_username,

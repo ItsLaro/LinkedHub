@@ -70,11 +70,11 @@ export async function putDefaultProjects(in_tag, gh_username, res) {
     },
   })
     .then((ghRes) => ghRes.text())
-    .then((ghRes) => {
+    .then(async (ghRes) => {
       console.log(ghRes);
       const obj = JSON.parse(ghRes).data.user.pinnedItems.edges;
 
-      setDoc(doc(db, "users", in_tag), {
+      await setDoc(doc(db, "users", in_tag), {
         gh_username: gh_username,
         projects: JSON.stringify(obj),
       });
