@@ -1,78 +1,105 @@
-html, body{
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    margin: 0;
-    min-height: 180px;
-    padding: 0px 16px 0px 16px;
-    width: 384px;
+html,
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  margin: 0;
+  min-height: 180px;
+  padding: 0px 16px 0px 16px;
+  width: 384px;
 }
 h1 {
-    font-family: 'Menlo', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    margin: 0;
-    color: #2f5876;
+  font-family: "Menlo", sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0;
+  color: #2f5876;
 }
-a:link, a:visited{
-    color: #000;
-    outline: 0;
-    text-decoration: none;
+a:link,
+a:visited {
+  color: #000;
+  outline: 0;
+  text-decoration: none;
 }
-img{
-    width: 30px;
+img {
+  width: 30px;
 }
-.link-header{
-    text-align: center;
+.link-header {
+  text-align: center;
+}
+.link-content {
+  padding: 0 22px;
+}
+.link-icons {
+  border-top: 0.5px solid #dadada;
+  height: 50px;
+  width: 100%;
+}
+.logo {
+  padding: 16px;
+}
+.logo-icon {
+  vertical-align: text-bottom;
+  margin-right: 12px;
+}
+.verison {
+  color: #444;
+  font-size: 18px;
+}
+.flex-container {
+  display: flex;
+  float: left;
+  justify-content: space-between;
+  padding: 10px 22px;
+}
+.flex {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  align-items: left;
+  text-align: left;
+}
+.flex:hover {
+  opacity: 0.4s;
+}
+.github-section {
+  display: inline;
+  padding: 8px;
+}
+.linkedin-section {
+  display: inline;
+  padding: 8px;
+}
+.inputContainer {
+  justify-content: right;
+  justify-items: right;
+  text-align: right;
+}
+.footnote {
+  text-align: center;
+  padding: 8px;
+}
 
+.section-lg {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5%;
 }
-.link-content{
-    padding: 0 22px;
+
+.input-lg {
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 5px 20px;
 }
-.link-icons{
-    border-top: 0.5px solid #dadada;
-    height: 50px;
-    width: 100%;
+
+.btn-container-lg {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
-.logo{
-   padding: 16px;
-}
-.logo-icon{
-    vertical-align: text-bottom;
-    margin-right: 12px;
-}
-.verison{
-    color: #444;
-    font-size: 18px;
-}
-.flex-container{
-    display: flex;
-    float: left;
-    justify-content: space-between;
-    padding: 10px 22px;
-}
-.flex{
-    opacity: 1;
-    transition: opacity 0.2s ease-in-out;
-    align-items: left;
-    text-align: left;
-}
-.flex:hover{
-    opacity: 0.4s;
-}
-.github-section{
-    display: inline;
-    padding: 8px
-}
-.linkedin-section{
-    display: inline;
-    padding: 8px
-}
-.inputContainer{
-    justify-content: right;
-    justify-items: right;
-    text-align: right
-}
-.footnote{
-    text-align: center;
-    padding: 8px;
+
+#submit_btn {
+  padding: 8px 16px;
+  border-radius: 10%;
+  background-color: #89c2eb;
+  cursor: pointer;
 }

@@ -17,15 +17,17 @@
         </h1>
     </div>
     <form method="GET">
-        <div class="github-section">
+        <div class="github-section-lg section-lg">
             <label class="textLabel" for="github_username">Github Username:</label>
-            <div class="inputContainer"><input type="text" id="github_username" name="github_username"></div>
+            <input type="text" id="github_username" class="input-lg" name="github_username">
         </div>
-        <div class="linkedin-section">
+        <div class="linkedin-section-lg section-lg">
             <label class="textLabel" for="linkedin_username">Linkedin Username:</label>
-            <div class="inputContainer"><input type="text" id="linkedin_username" name="linkedin_username"></div>
+            <input type="text" id="linkedin_username" class="input-lg" name="linkedin_username">
         </div>
-        <input type="submit" id="submit_btn" />
+        <div class="btn-container-lg">
+            <input type="submit" id="submit_btn" />
+        </div>
     </form>
         <script defer>
             const btn = document.getElementById("submit_btn");
