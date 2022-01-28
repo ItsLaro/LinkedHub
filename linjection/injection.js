@@ -96,7 +96,7 @@ const generateHTML = () => {
     <span class="visually-hidden">
       <a target="_self" href="https://github.com/${username}">
         <strong>
-          <!---->273 contributions in the last year<!---->
+          <!---->${numContributions} contributions in the last year<!---->
         </strong>
       </a>  
     </span>
@@ -196,7 +196,7 @@ const generateHTML = () => {
                     <button id="prevButton" style="${btn_style}transform:translate(-20px,0);"><</button>
                        ${videoEmbed}
                        <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;width: 400px;">
-                           <p id="projectDescription" style="padding-top: 20%;text-align:center;">${projectDescription}</p>
+                           <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:3em;">${projectDescription}</p>
                            <button style="${btn_style}">Inquire</button>
                        </div>
                        <button id="nextButton" style="${btn_style}">></button>
@@ -249,14 +249,16 @@ const generateHTML = () => {
 </li>
   `;
 
+  const largeForMac = isMac ? "text-heading-large" : "t-14";
+
   const mainContent = `
-  <h2 class="pvs-header__title text-heading-large">
+  <h2 class="pvs-header__title ${largeForMac}">
     <!---->
     <span aria-hidden="true">Contributions</span>
     <!---->
   </h2>
   ${contributions}
-  <h2 class="pvs-header__title text-heading-large">
+  <h2 class="pvs-header__title ${largeForMac}">
     <!---->
     <span aria-hidden="true">Repositories</span>
     <!---->
