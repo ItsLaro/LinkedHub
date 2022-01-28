@@ -116,34 +116,40 @@ const generateHTML = () => {
   `;
 
   const btn_style = `
-  
-  background-color: var(--voyager-color-action);
-  color: var(--color-text-shift-on-dark-flip);
-  font-size: 1.6rem;
-  padding: 0.6rem 0;
-  line-height: 2rem;
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
-  transition-duration: 167ms;
-  align-items: center;
-  border: none;
-  border-radius: 2px;
-  box-sizing: border-box;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 600;
-  display: inline-flex;
-  justify-content: center;
-  overflow: hidden;
-  text-align: center;
-  height: fit-content;
-  transition-property: background-color,box-shadow,color;
-  vertical-align: middle;
-  margin-right: 0;
-  margin-left: 0;
-  margin-top: 25px;
-  border-radius: var(--corner-radius-large)!important;
-  padding-left: 1.6rem!important;
-  padding-right: 1.6rem!important;
+  <style>
+  .btn-lh {
+    background-color: var(--voyager-color-action);
+    color: var(--color-text-shift-on-dark-flip);
+    font-size: 1.6rem;
+    padding: 0.6rem 0;
+    line-height: 2rem;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: 167ms;
+    align-items: center;
+    border: none;
+    border-radius: 2px;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    height: fit-content;
+    transition-property: background-color,box-shadow,color;
+    vertical-align: middle;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 25px;
+    border-radius: var(--corner-radius-large)!important;
+    padding-left: 1.6rem!important;
+    padding-right: 1.6rem!important;
+  }
+  #prevButton {
+    transform:translate(-50px,0);
+  }
+  </style>
   `;
 
   const repo1 = `
@@ -162,6 +168,7 @@ const generateHTML = () => {
            </span>
            <!----><!----><!---->        
         </div>
+        ${btn_style}
         <span class="t-14 t-normal">
            <span id="projectSubTitle" aria-hidden="true">
               <!---->${projectSubTitle}<!---->
@@ -195,13 +202,13 @@ const generateHTML = () => {
                  ">
                  <li class="pvs-list__item--with-top-padding ">
                     <div class="display-flex" style="align-items: center;justify-content:center;">
-                    <button id="prevButton" style="${btn_style}transform:translate(-50px,0);"><</button>
+                    <button id="prevButton" class="btn-lh" style="display: none;"><</button>
                        ${videoEmbed}
                        <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;width: 400px;padding-left:20px;transform:translate(-20px,0);">
                            <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:14px;">${projectDescription}</p>
-                           <button style="${btn_style}">Inquire</button>
+                           <button class="btn-lh">Inquire</button>
                        </div>
-                       <button id="nextButton" style="${btn_style}">></button>
+                       <button id="nextButton" class="btn-lh">></button>
                     </div>
                  </li>
               </ul>
@@ -306,30 +313,6 @@ const generateHTML = () => {
           <!---->    
        </div>
        <div class="pvs-header__right-container">
-          <a class="optional-action-target-wrapper artdeco-button artdeco-button--tertiary artdeco-button--3 artdeco-button--muted artdeco-button--circle
-             inline-flex justify-center align-self-flex-start
-             " target="_self" href="">
-             <div class="pvs-navigation__icon">
-                <li-icon type="add-icon" size="medium" role="img" aria-label="Add new project">
-                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
-                      <path d="M21 13h-8v8h-2v-8H3v-2h8V3h2v8h8z"></path>
-                   </svg>
-                </li-icon>
-             </div>
-             <!---->  
-          </a>
-          <a class="optional-action-target-wrapper artdeco-button artdeco-button--tertiary artdeco-button--3 artdeco-button--muted artdeco-button--circle
-             inline-flex justify-center align-self-flex-start
-             " target="_self" href="">
-             <div class="pvs-navigation__icon">
-                <li-icon type="pencil-icon" size="medium" role="img" aria-label="View experience detail screen">
-                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
-                      <path d="M21.13 2.86a3 3 0 00-4.17 0l-13 13L2 22l6.19-2L21.13 7a3 3 0 000-4.16zM6.77 18.57l-1.35-1.34L16.64 6 18 7.35z"></path>
-                   </svg>
-                </li-icon>
-             </div>
-             <!---->  
-          </a>
        </div>
     </div>
  </div>
@@ -426,7 +409,7 @@ const renderGitHubSection = () => {
 
 const nextRepo = () => {
   if (index < numRepos - 1) {
-    index++;
+    ++index;
     console.log(
       "Next Clicked!",
       "Repos",
@@ -437,6 +420,14 @@ const nextRepo = () => {
       pinnedRepos[index].node
     );
     bindData(index, pinnedRepos[index].node);
+    console.log("Next Repo:", pinnedRepos[index+1])
+    document.getElementById("prevButton").style = "display: show;";
+    if (index == numRepos - 1){
+      document.getElementById("nextButton").style = "display: none;";
+    } 
+    else {
+      document.getElementById("nextButton").style = "display: show;";
+    }
   }
 };
 
@@ -453,6 +444,12 @@ const prevRepo = () => {
       pinnedRepos[index].node
     );
     bindData(index, pinnedRepos[index].node);
+    document.getElementById("nextButton").style = "display: show";
+    if (index == 0){
+      document.getElementById("prevButton").style = "display: none";
+    } else {
+      document.getElementById("prevButton").style = "display: show";
+    }
   }
 };
 
