@@ -1,7 +1,9 @@
 let attempt = 0;
 let result = {};
 let isFetched = false;
-let username = "ItsLaro";
+let username = "";
+const in_tag = window.location.pathname.split("/")[2];
+
 let newHTML = ""
 
 const isMac = window.navigator.userAgentData.platform === "macOS";
@@ -18,14 +20,17 @@ let projectDatetime = "";
 let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
+let results = {};
 
-fetch(`http://localhost:3000/projects/${username}`)
+
+fetch(`http://localhost:3000/settings/${in_tag}`)
   .then((response) => {
     console.log("Fetched");
     return response.json();
   })
   .then((data) => {
     result = data;
+    username = result.gh_username;
     pinnedRepos = result.data.user.pinnedItems.edges;
     numRepos = pinnedRepos.length;
     pinnedRepo1 = pinnedRepos[0].node;
