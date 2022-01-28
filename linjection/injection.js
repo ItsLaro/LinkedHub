@@ -21,8 +21,16 @@ let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
 let videoDemoURL = null;
+let rerender = false;
 
 const mainFunction = () => {
+  fetchInfo(() => {
+    renderGitHubSection();
+  });
+};
+mainFunction();
+
+function fetchInfo(runnable) {
   in_tag = window.location.pathname.split("/")[2];
   fetch(`http://localhost:3000/settings/${in_tag}`)
     .then((response) => {
@@ -54,14 +62,13 @@ const mainFunction = () => {
           numContributions = data.totalContributions;
 
           newHTML = generateHTML();
-          renderGitHubSection();
+          runnable();
         });
     })
     .catch((err) => {
       console.log(err);
     });
-};
-mainFunction();
+}
 
 const generateHTML = () => {
   const contributions = `
@@ -319,7 +326,7 @@ const injectGHSection = () => {
   const expSection = findPreviousSection();
   // Inject in to webpage
   if (expSection != null) {
-    if (document.getElementById("github-section") == null) {
+    if (document.getElementById("github-section") == null || rerender) {
       if (isWin) {
         expSection.parentNode.insertBefore(newHTML, expSection);
       } else if (isMac) {
@@ -330,9 +337,6 @@ const injectGHSection = () => {
       }
       console.log("Injection Success!");
     } else {
-      if (in_tag != window.location.pathname.split("/")[2]) {
-        console.log("NEED A rerender");
-      }
       console.log("Injection Succeeded already!");
     }
   } else {
@@ -344,6 +348,13 @@ const attemptInject = () => {
   setTimeout(() => {
     if (isFetched) {
       injectGHSection();
+    }
+    if (in_tag != window.location.pathname.split("/")[2]) {
+      console.log("NEED A rerender");
+      rerender = true;
+      fetchInfo(() => {
+        rerender = false;
+      });
     }
     attemptInject();
   }, 100);
