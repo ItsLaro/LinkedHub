@@ -227,7 +227,7 @@ const generateHTML = () => {
                        ${videoEmbed}
                        <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;width: 400px;padding-left:20px;transform:translate(-20px,0);">
                            <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:14px;">${projectDescription}</p>
-                           <button style="${btn_style}">Inquire</button>
+                           <button style="${btn_style}" id="inquireButton">Inquire</button>
                        </div>
                        <button id="nextButton" style="${btn_style}">></button>
                     </div>
@@ -418,6 +418,9 @@ const injectGHSection = () => {
       console.log("Injection Success!");
       document.getElementById("nextButton").addEventListener("click", nextRepo);
       document.getElementById("prevButton").addEventListener("click", prevRepo);
+      document
+        .getElementById("inquireButton")
+        .addEventListener("click", messageBtnClick);
 
       isRerender = false;
     } else {
@@ -518,3 +521,7 @@ const bindData = (index, pinnedRepo) => {
   document.getElementById("profilePic").src = pinnedRepo.owner.avatarUrl;
   // primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
 };
+
+function messageBtnClick() {
+  document.getElementsByClassName("message-anywhere-button")[0].click();
+}
