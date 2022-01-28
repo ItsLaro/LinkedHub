@@ -413,7 +413,7 @@ const injectGHSection = () => {
               primaryLanguageName +
               ". It looked really cool and I was wondering if you could talk about it soon with me."
           );
-        }, 300);
+        }, 450);
       });
 
       isRerender = false;
