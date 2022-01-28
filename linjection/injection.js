@@ -21,7 +21,7 @@ let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
 let videoDemoURL = null;
-let rerender = false;
+let isRerender = false;
 
 const mainFunction = () => {
   fetchInfo(() => {
@@ -47,7 +47,7 @@ function fetchInfo(runnable) {
       projectSubTitle = "Personal Project";
       projectDatetime = pinnedRepo1.createdAt;
       projectDescription =
-        pinnedRepo1.description === null ? "" : pinnedRepo1.description;
+      pinnedRepo1.description === null ? "" : pinnedRepo1.description;
       primaryLanguageName = pinnedRepo1.primaryLanguage.name;
       primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
       isFetched = true;
@@ -61,6 +61,10 @@ function fetchInfo(runnable) {
         .then((data) => {
           numContributions = data.totalContributions;
 
+          isRerender = false;
+          if (document.getElementById("github-section") !== null){
+            document.getElementById("github-section").remove();
+          }
           newHTML = generateHTML();
           runnable();
         });
@@ -216,15 +220,15 @@ const generateHTML = () => {
 
   const mainContent = `
   <h2 class="pvs-header__title text-heading-large">
-  <!---->
-  <span aria-hidden="true">Contributions</span>
-  <!---->
+    <!---->
+    <span aria-hidden="true">Contributions</span>
+    <!---->
   </h2>
   ${contributions}
   <h2 class="pvs-header__title text-heading-large">
-  <!---->
-  <span aria-hidden="true">Repositories</span>
-  <!---->
+    <!---->
+    <span aria-hidden="true">Repositories</span>
+    <!---->
   </h2>
   ${repos}
   `;
@@ -232,7 +236,7 @@ const generateHTML = () => {
   let githubContentSection = "Error";
   if (isWin) {
     githubContentSection = `
-        <div class="pvs-header__container"  id="github-section">
+        <div class="pvs-header__container">
           <div>
             <div>
               <div class="pvs-header__title-container">
@@ -250,57 +254,70 @@ const generateHTML = () => {
     `;
   } else if (isMac) {
     githubContentSection = `
-
-    <div class="pvs-header__container" id="github-section">
+    <div class="pvs-header__container">
     <div class="pvs-header__top-container--no-stack">
-      <div class="pvs-header__left-container--stack">
-        <div class="pvs-header__title-container">
-            <h2 class="pvs-header__title text-heading-large">
-              <span aria-hidden="true"><!---->Github<!----></span><span class="visually-hidden"><!---->Github<!----></span>
-            </h2>
-  <!----><!---->      </div>
-
-  <!---->    </div>
-
-        <div class="pvs-header__right-container">
-                        <a class="optional-action-target-wrapper artdeco-button artdeco-button--tertiary artdeco-button--3 artdeco-button--muted artdeco-button--circle
-        inline-flex justify-center align-self-flex-start
-        
-        " target="_self" href="">
-        <div class="pvs-navigation__icon">
-          <li-icon type="add-icon" size="medium" role="img" aria-label="Add new project"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
-    <path d="M21 13h-8v8h-2v-8H3v-2h8V3h2v8h8z"></path>
-  </svg></li-icon>
-        </div>
-  <!---->  </a>
+       <div class="pvs-header__left-container--stack">
+          <div class="pvs-header__title-container">
+             <h2 class="pvs-header__title text-heading-large">
+                <span aria-hidden="true">
+                   <!---->Github<!---->
+                </span>
+                <span class="visually-hidden">
+                   <!---->Github<!---->
+                </span>
+             </h2>
+             <!----><!---->      
+          </div>
+          <!---->    
+       </div>
+       <div class="pvs-header__right-container">
           <a class="optional-action-target-wrapper artdeco-button artdeco-button--tertiary artdeco-button--3 artdeco-button--muted artdeco-button--circle
-        inline-flex justify-center align-self-flex-start
-        " target="_self" href="">
-        <div class="pvs-navigation__icon">
-          <li-icon type="pencil-icon" size="medium" role="img" aria-label="View experience detail screen"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
-    <path d="M21.13 2.86a3 3 0 00-4.17 0l-13 13L2 22l6.19-2L21.13 7a3 3 0 000-4.16zM6.77 18.57l-1.35-1.34L16.64 6 18 7.35z"></path>
-  </svg></li-icon>
-        </div>
-  <!---->  </a>
-        </div>
+             inline-flex justify-center align-self-flex-start
+             " target="_self" href="">
+             <div class="pvs-navigation__icon">
+                <li-icon type="add-icon" size="medium" role="img" aria-label="Add new project">
+                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                      <path d="M21 13h-8v8h-2v-8H3v-2h8V3h2v8h8z"></path>
+                   </svg>
+                </li-icon>
+             </div>
+             <!---->  
+          </a>
+          <a class="optional-action-target-wrapper artdeco-button artdeco-button--tertiary artdeco-button--3 artdeco-button--muted artdeco-button--circle
+             inline-flex justify-center align-self-flex-start
+             " target="_self" href="">
+             <div class="pvs-navigation__icon">
+                <li-icon type="pencil-icon" size="medium" role="img" aria-label="View experience detail screen">
+                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" data-supported-dps="24x24" fill="currentColor" class="mercado-match" width="24" height="24" focusable="false">
+                      <path d="M21.13 2.86a3 3 0 00-4.17 0l-13 13L2 22l6.19-2L21.13 7a3 3 0 000-4.16zM6.77 18.57l-1.35-1.34L16.64 6 18 7.35z"></path>
+                   </svg>
+                </li-icon>
+             </div>
+             <!---->  
+          </a>
+       </div>
     </div>
-  </div>
-      <!---->
-      <div id="experience" class="pv-profile-card-anchor"></div>
-      <!---->
-      <div class="pvs-header__container">
-      <div>
-      <div>
-      <div class="pvs-header__title-container">
-          ${mainContent}
-      <!----><!---->      </div>
-      <!---->    </div>
-      <!---->  </div>
-      </div>
+ </div>
+ <!---->
+ <div id="experience" class="pv-profile-card-anchor"></div>
+ <!---->
+ <div class="pvs-header__container">
+    <div>
+       <div>
+          <div class="pvs-header__title-container">
+             ${mainContent}
+             <!----><!---->      
+          </div>
+          <!---->    
+       </div>
+       <!---->  
+    </div>
+ </div>
   `;
   }
 
   const ghSection = document.createElement("section");
+  ghSection.id = "github-section"
   ghSection.className =
     "github-section artdeco-card ember-view break-words pb3 mt4";
   ghSection.innerHTML = githubContentSection;
@@ -326,7 +343,7 @@ const injectGHSection = () => {
   const expSection = findPreviousSection();
   // Inject in to webpage
   if (expSection != null) {
-    if (document.getElementById("github-section") == null || rerender) {
+    if (document.getElementById("github-section") == null) {
       if (isWin) {
         expSection.parentNode.insertBefore(newHTML, expSection);
       } else if (isMac) {
@@ -336,6 +353,7 @@ const injectGHSection = () => {
         );
       }
       console.log("Injection Success!");
+      isRerender = false;
     } else {
       console.log("Injection Succeeded already!");
     }
@@ -351,10 +369,8 @@ const attemptInject = () => {
     }
     if (in_tag != window.location.pathname.split("/")[2]) {
       console.log("NEED A rerender");
-      rerender = true;
-      fetchInfo(() => {
-        rerender = false;
-      });
+      isRerender = true;
+      mainFunction();
     }
     attemptInject();
   }, 100);
