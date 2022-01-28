@@ -82,22 +82,36 @@
             <img src="./icon_128.png" alt="" class="logo-icon"> LinkedHub <span class="verison"></span>
         </h1>
     </div>
-    <form method="POST" action="http://localhost:3000/settings/${in_tag}">
-    <label for="fname">Github Username:</label>
-    <input type="text" id="fname" name="fname">
-    <input type="submit" onClick="myFunction()"/>
+    <form method="GET">
+        <label for="github_username">Github Username:</label>
+        <input type="text" id="github_username" name="github_username">
+        <br />
+        <label for="linkedin_username">Linkedin Username:</label>
+        <input type="text" id="linkedin_username" name="linkedin_username">
+        <br />
+        <input type="submit" id="submit_btn" />
     </form>
-    <form method="POST" action="http://localhost:3000/settings/${in_tag}">
-        <label for="fname">Linkedin Username:</label>
-        <input type="text" id="fname" name="fname">
-        <input type="submit" onClick="myFunction()"/>
-        </form>
-        <button id="myBtn"/>
-        <script>
-          document.getElementById("myBtn").addEventListener("click", myFunction);
-          function myFunction() {
-            window.location.href="window.location.pathname.split("/")[2]";
-          }
+        <script defer>
+            const btn = document.getElementById("submit_btn");
+            btn.addEventListener("click", myFunction);
+            function myFunction(event) {
+                event.preventDefault();
+                const gh_username = document.getElementById("github_username").value;
+                const in_username = document.getElementById("linkedin_username").value;
+                console.log(JSON.stringify({gh_username}))
+
+                fetch("http://localhost:3000/settings/" + in_username, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({gh_username: gh_username})
+                }).then(function(response) {
+                    console.log(response)
+                }).catch(err => console.log(err));
+
+            }
         </script>
         <div class="link-content">
             <p>Made with ❤️ at MHW Hack@Campus 🌴</p>
