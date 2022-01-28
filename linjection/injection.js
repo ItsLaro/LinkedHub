@@ -47,7 +47,7 @@ function fetchInfo(runnable) {
       projectSubTitle = "Personal Project";
       projectDatetime = pinnedRepo1.createdAt;
       projectDescription =
-      pinnedRepo1.description === null ? "" : pinnedRepo1.description;
+        pinnedRepo1.description === null ? "" : pinnedRepo1.description;
       primaryLanguageName = pinnedRepo1.primaryLanguage.name;
       primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
       isFetched = true;
@@ -62,7 +62,7 @@ function fetchInfo(runnable) {
           numContributions = data.totalContributions;
 
           isRerender = false;
-          if (document.getElementById("github-section") !== null){
+          if (document.getElementById("github-section") !== null) {
             document.getElementById("github-section").remove();
           }
           newHTML = generateHTML();
@@ -101,7 +101,38 @@ const generateHTML = () => {
     videoDemoURL === null
       ? `
   `
-      : `<iframe width="100%" height="412" style="padding-right:56px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      : `<iframe width="100%" height="412" style="padding-right:20px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  `;
+
+  const btn_style = `
+  
+  background-color: var(--voyager-color-action);
+  color: var(--color-text-shift-on-dark-flip);
+  font-size: 1.6rem;
+  padding: 0.6rem 0;
+  line-height: 2rem;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-duration: 167ms;
+  align-items: center;
+  border: none;
+  border-radius: 2px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  display: inline-flex;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  height: fit-content;
+  transition-property: background-color,box-shadow,color;
+  vertical-align: middle;
+  margin-right: 0;
+  margin-left: 0;
+  margin-top: 25px;
+  border-radius: var(--corner-radius-large)!important;
+  padding-left: 1.6rem!important;
+  padding-right: 1.6rem!important;
   `;
 
   const repo1 = `
@@ -152,23 +183,14 @@ const generateHTML = () => {
               <ul class="pvs-list
                  ">
                  <li class="pvs-list__item--with-top-padding ">
-                    <div class="display-flex ">
-                       <div class="display-flex full-width">
-                          <div class="pv-shared-text-with-see-more t-14 t-normal t-black display-flex align-items-center">
-                             <div class="inline-show-more-text inline-show-more-text--is-collapsed" style="line-height:1.9rem;max-height:3.8rem;">
-                                <span aria-hidden="true">
-                                   <!---->${projectDescription}<!---->
-                                </span>
-                                <span class="visually-hidden">
-                                   <!---->${projectDescription}<!---->
-                                </span>
-                                <!---->
-                             </div>
-                          </div>
-                       </div>
-                    </div>
-                    <div class="display-flex ">
+                    <div class="display-flex" style="align-items: center;justify-content:center;">
+                    <button style="${btn_style}transform:translate(-20px,0);"><</button>
                        ${videoEmbed}
+                       <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;">
+                           <p style="padding-top: 20%;text-align:center;">${projectDescription}</p>
+                           <button style="${btn_style}">Inquire</button>
+                       </div>
+                       <button style="${btn_style}">></button>
                     </div>
                  </li>
               </ul>
@@ -317,7 +339,7 @@ const generateHTML = () => {
   }
 
   const ghSection = document.createElement("section");
-  ghSection.id = "github-section"
+  ghSection.id = "github-section";
   ghSection.className =
     "github-section artdeco-card ember-view break-words pb3 mt4";
   ghSection.innerHTML = githubContentSection;
