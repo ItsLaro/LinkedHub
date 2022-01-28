@@ -1,5 +1,4 @@
 let attempt = 0;
-let result = {};
 let isFetched = false;
 let username = "";
 const in_tag = window.location.pathname.split("/")[2];
@@ -20,8 +19,6 @@ let projectDatetime = "";
 let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
-let results = {};
-
 
 fetch(`http://localhost:3000/settings/${in_tag}`)
   .then((response) => {
@@ -29,9 +26,8 @@ fetch(`http://localhost:3000/settings/${in_tag}`)
     return response.json();
   })
   .then((data) => {
-    result = data;
-    username = result.gh_username;
-    pinnedRepos = result.data.user.pinnedItems.edges;
+    username = data.gh_username;
+    pinnedRepos = data.projects;
     numRepos = pinnedRepos.length;
     pinnedRepo1 = pinnedRepos[0].node;
     githubProfileURL = pinnedRepo1.owner.url;
@@ -196,7 +192,7 @@ const generateHTML = () => {
   let githubContentSection = "Error";
   if (isWin) {
     githubContentSection = `
-        <div class="pvs-header__container">
+        <div class="pvs-header__container"  id="github-section">
           <div>
             <div>
               <div class="pvs-header__title-container">
@@ -215,7 +211,7 @@ const generateHTML = () => {
   } else if (isMac) {
     githubContentSection = `
 
-    <div class="pvs-header__container">
+    <div class="pvs-header__container" id="github-section">
     <div class="pvs-header__top-container--no-stack">
       <div class="pvs-header__left-container--stack">
         <div class="pvs-header__title-container">
@@ -291,15 +287,19 @@ const injectGHSection = () => {
   const expSection = findPreviousSection();
   // Inject in to webpage
   if (expSection != null) {
-    if (isWin) {
-      expSection.parentNode.insertBefore(newHTML, expSection);
-    } else if (isMac) {
-      expSection.parentNode.parentNode.insertBefore(
-        newHTML,
-        expSection.parentNode
-      );
+    if (document.getElementById("github-section") == null) {
+      if (isWin) {
+        expSection.parentNode.insertBefore(newHTML, expSection);
+      } else if (isMac) {
+        expSection.parentNode.parentNode.insertBefore(
+          newHTML,
+          expSection.parentNode
+        );
+      }
+      console.log("Injection Success!");
+    } else {
+      console.log("Injection Succeeded already!");
     }
-    console.log("Injection Success!");
   } else {
     console.log("Injection failed :(");
   }
