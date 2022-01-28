@@ -17,11 +17,12 @@ let pinnedRepo1 = {};
 let githubProfileURL = "";
 let githubProfilePicURL = "";
 let projectTitle = pinnedRepo1.name;
+let primaryLanguageName = "";
+let primaryLanguageColor = "";
 let projectSubTitle = "";
 let projectDatetime = "";
 let projectDescription = "";
-let primaryLanguageName = "";
-let primaryLanguageColor = "";
+
 let videoDemoURL = null;
 let youtubes = [];
 
@@ -47,12 +48,13 @@ function fetchInfo(runnable) {
       githubProfileURL = pinnedRepo1.owner.url;
       githubProfilePicURL = pinnedRepo1.owner.avatarUrl;
       projectTitle = pinnedRepo1.name;
-      projectSubTitle = "Personal Project";
+      primaryLanguageName = pinnedRepo1.primaryLanguage.name;
+      primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
+      projectSubTitle = "Personal Project, using " + primaryLanguageName;
       projectDatetime = pinnedRepo1.createdAt;
       projectDescription =
         pinnedRepo1.description === null ? "" : pinnedRepo1.description;
-      primaryLanguageName = pinnedRepo1.primaryLanguage.name;
-      primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
+
       isFetched = true;
       youtubes = [data.youtube1, data.youtube2, data.youtube3, data.youtube4];
       videoDemoURL = youtubes[0];
@@ -456,6 +458,7 @@ const prevRepo = () => {
 
 const bindData = (index, pinnedRepo) => {
   document.getElementById("projectTitle").innerHTML = pinnedRepo.name;
+  document.getElementById("projectSubTitle").innerHTML = `Personal Project, using ${pinnedRepo.primaryLanguage.name}`
   document.getElementById("projectDatetime").innerHTML = pinnedRepo.createdAt;
   document.getElementById("projectDescription").innerHTML =
     pinnedRepo.description === null ? "" : pinnedRepo.description;
@@ -472,6 +475,5 @@ const bindData = (index, pinnedRepo) => {
   }
   document.getElementById("profileURL").href = pinnedRepo.owner.url;
   document.getElementById("profilePic").src = pinnedRepo.owner.avatarUrl;
-  // primaryLanguageName = pinnedRepo1.primaryLanguage.name;
   // primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
 };
