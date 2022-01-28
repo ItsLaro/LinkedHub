@@ -79,6 +79,8 @@ export async function putDefaultProjects(in_tag, gh_username, res) {
         projects: JSON.stringify(obj),
       });
 
+      obj["gh_username"] = gh_username;
+
       res.json(obj);
     })
     .catch((error) => console.error(error));
