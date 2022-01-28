@@ -74,10 +74,14 @@ export async function putDefaultProjects(in_tag, gh_username, res) {
       console.log(ghRes);
       const obj = JSON.parse(ghRes).data.user.pinnedItems.edges;
 
-      await setDoc(doc(db, "users", in_tag), {
-        gh_username: gh_username,
-        projects: JSON.stringify(obj),
-      });
+      await setDoc(
+        doc(db, "users", in_tag),
+        {
+          gh_username: gh_username,
+          projects: JSON.stringify(obj),
+        },
+        { merge: true }
+      );
 
       obj["gh_username"] = gh_username;
 
