@@ -116,3 +116,11 @@ img {
   left: 3.5%;
   top: 7%;
 }
+
+#clear_btn {
+  padding: 8px 16px;
+  border-radius: 10%;
+  margin-left: 20px;
+  background-color: rgb(243, 113, 113);
+  cursor: pointer;
+}
