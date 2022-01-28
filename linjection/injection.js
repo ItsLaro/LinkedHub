@@ -1,5 +1,6 @@
-let attempt = 0;
 let isFetched = false;
+let isRerender = false;
+
 let username = "";
 let in_tag = window.location.pathname.split("/")[2];
 
@@ -21,7 +22,6 @@ let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
 let videoDemoURL = null;
-let isRerender = false;
 
 const mainFunction = () => {
   fetchInfo(() => {
@@ -64,12 +64,17 @@ function fetchInfo(runnable) {
           isRerender = false;
           if (document.getElementById("github-section") !== null) {
             document.getElementById("github-section").remove();
+            console.log("New Profile loaded, Removed previous github section");
           }
           newHTML = generateHTML();
           runnable();
         });
     })
     .catch((err) => {
+      if (document.getElementById("github-section") !== null){
+        document.getElementById("github-section").remove();
+        console.log("Fetch Failed. Removed stale section!");
+      }
       console.log(err);
     });
 }
@@ -392,6 +397,10 @@ const attemptInject = () => {
     if (in_tag != window.location.pathname.split("/")[2]) {
       console.log("NEED A rerender");
       isRerender = true;
+      if (document.getElementById("github-section") !== null){
+        document.getElementById("github-section").remove();
+        console.log("Removed stale github section")
+      }
       mainFunction();
     }
     attemptInject();
