@@ -15,6 +15,10 @@ router.get("/:linkedin_tag", async function (req, res) {
       res.json({
         gh_username: data.gh_username,
         projects: JSON.parse(data.projects),
+        youtube1: data.youtube1,
+        youtube2: data.youtube2,
+        youtube3: data.youtube3,
+        youtube4: data.youtube4,
       });
     } else {
       putDefaultProjects(req.params.linkedin_tag, data.gh_username, res);
@@ -28,13 +32,21 @@ router.get("/:linkedin_tag", async function (req, res) {
 
 /* Change user settings */
 router.post("/:linkedin_tag", jsonParser, function (req, res) {
-  const gh_username = req.body.gh_username;
+  const gh_username = req.body.gh_username,
+    youtube1 = req.body.youtube1,
+    youtube2 = req.body.youtube2,
+    youtube3 = req.body.youtube3,
+    youtube4 = req.body.youtube4;
   console.log(JSON.stringify(req.body));
 
   setDoc(
     doc(db, "users", req.params.linkedin_tag),
     {
       gh_username,
+      youtube1,
+      youtube2,
+      youtube3,
+      youtube4,
     },
     { merge: true }
   );

@@ -23,6 +23,7 @@ let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
 let videoDemoURL = null;
+let youtubes = [];
 
 const mainFunction = () => {
   fetchInfo(() => {
@@ -53,7 +54,8 @@ function fetchInfo(runnable) {
       primaryLanguageName = pinnedRepo1.primaryLanguage.name;
       primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
       isFetched = true;
-      videoDemoURL = "https://www.youtube.com/embed/Mv_JULBp-c4"; //TODO: Get from response
+      youtubes = [data.youtube1, data.youtube2, data.youtube3, data.youtube4];
+      videoDemoURL = youtubes[0]; //TODO: Get from response
 
       fetch(`http://localhost:3000/contributions/${username}`)
         .then((response) => {
@@ -73,7 +75,7 @@ function fetchInfo(runnable) {
         });
     })
     .catch((err) => {
-      if (document.getElementById("github-section") !== null){
+      if (document.getElementById("github-section") !== null) {
         document.getElementById("github-section").remove();
         console.log("Fetch Failed. Removed stale section!");
       }
@@ -108,7 +110,7 @@ const generateHTML = () => {
     videoDemoURL === null
       ? `
   `
-      : `<iframe id="demoVideo" width="100%" height="412" style="padding-right:20px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      : `<iframe width="100%" height="220px" style="padding-right:20px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   `;
 
   const btn_style = `
@@ -402,9 +404,9 @@ const attemptInject = () => {
     if (in_tag != window.location.pathname.split("/")[2]) {
       console.log("NEED A rerender");
       isRerender = true;
-      if (document.getElementById("github-section") !== null){
+      if (document.getElementById("github-section") !== null) {
         document.getElementById("github-section").remove();
-        console.log("Removed stale github section")
+        console.log("Removed stale github section");
       }
       mainFunction();
     }
