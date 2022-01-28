@@ -10,6 +10,15 @@ let youtube_mode = false;
 document.getElementById("github_username").value = gh_username_local;
 document.getElementById("linkedin_username").value = in_username_local;
 
+function getYoutubeLink(id) {
+  let youtube = document.getElementById(id).value.split("/");
+  youtube = youtube[youtube.length - 1];
+  if (youtube.indexOf("=") != -1) {
+    youtube = youtube.split("=")[1];
+  }
+  return "https://www.youtube.com/embed/" + youtube;
+}
+
 if (
   gh_username_local != null &&
   in_username_local != null &&
@@ -67,10 +76,10 @@ function myFunction(event) {
     btn.value = "Adding Videos!";
     const gh_username = document.getElementById("github_username").value;
     const in_username = document.getElementById("linkedin_username").value;
-    const youtube1 = document.getElementById("youtube1").value;
-    const youtube2 = document.getElementById("youtube2").value;
-    const youtube3 = document.getElementById("youtube3").value;
-    const youtube4 = document.getElementById("youtube4").value;
+    let youtube1 = getYoutubeLink("youtube1");
+    let youtube2 = getYoutubeLink("youtube2");
+    let youtube3 = getYoutubeLink("youtube3");
+    let youtube4 = getYoutubeLink("youtube4");
 
     fetch("http://localhost:3000/settings/" + in_username, {
       method: "POST",
@@ -88,7 +97,7 @@ function myFunction(event) {
     })
       .then(function (response) {
         console.log(response);
-        btn.value = "Added Account!";
+        btn.value = "Added Videos!";
         localStorage.setItem("github_username", gh_username);
         localStorage.setItem("linkedin_username", in_username);
         localStorage.setItem("youtube1", youtube1);
@@ -96,7 +105,7 @@ function myFunction(event) {
         localStorage.setItem("youtube3", youtube3);
         localStorage.setItem("youtube4", youtube4);
         setTimeout(() => {
-          btn.value = "Add Youtube Videos";
+          btn.value = "Set Youtube Videos";
         }, 2500);
       })
       .catch((err) => {
