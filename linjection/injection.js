@@ -55,7 +55,7 @@ function fetchInfo(runnable) {
       primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
       isFetched = true;
       youtubes = [data.youtube1, data.youtube2, data.youtube3, data.youtube4];
-      videoDemoURL = youtubes[0]; 
+      videoDemoURL = youtubes[0];
 
       fetch(`http://localhost:3000/contributions/${username}`)
         .then((response) => {
@@ -196,7 +196,7 @@ const generateHTML = () => {
                     <button id="prevButton" style="${btn_style}transform:translate(-20px,0);"><</button>
                        ${videoEmbed}
                        <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;width: 400px;">
-                           <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:3em;">${projectDescription}</p>
+                           <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:1.1em;">${projectDescription}</p>
                            <button style="${btn_style}">Inquire</button>
                        </div>
                        <button id="nextButton" style="${btn_style}">></button>
@@ -457,9 +457,18 @@ const prevRepo = () => {
 const bindData = (index, pinnedRepo) => {
   document.getElementById("projectTitle").innerHTML = pinnedRepo.name;
   document.getElementById("projectDatetime").innerHTML = pinnedRepo.createdAt;
-  document.getElementById("projectDescription").innerHTML = pinnedRepo.description === null ? "" : pinnedRepo.description;
-  document.getElementById("videoDemo").src = youtubes[index];
-  console.log("Youtube URL", youtubes[index])
+  document.getElementById("projectDescription").innerHTML =
+    pinnedRepo.description === null ? "" : pinnedRepo.description;
+  if (
+    youtubes[index] == null ||
+    youtubes[index] == undefined ||
+    youtubes[index] == ""
+  ) {
+    document.getElementById("videoDemo").style = "display: none;";
+  } else {
+    document.getElementById("videoDemo").style = "display: show;";
+    document.getElementById("videoDemo").src = youtubes[index];
+  }
   document.getElementById("profileURL").href = pinnedRepo.owner.url;
   document.getElementById("profilePic").src = pinnedRepo.owner.avatarUrl;
   // primaryLanguageName = pinnedRepo1.primaryLanguage.name;
