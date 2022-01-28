@@ -5,76 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LinkedHub</title>
+    <link rel="stylesheet" href="popup.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" 
     integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
-
-    <style>
-        html, body{
-            font-family: 'Open Sans', sans-serif;
-            font-size: 14px;
-            margin: 0;
-            min-height: 180px;
-            padding: 0;
-            width: 384px;
-        }
-        h1 {
-            font-family: 'Menlo', sans-serif;
-            font-size: 22px;
-            font-weight: 400;
-            margin: 0;
-            color: #2f5876;
-        }
-        a:link, a:visited{
-            color: #000;
-            outline: 0;
-            text-decoration: none;
-        }
-        img{
-            width: 30px;
-        }
-        .link-header{
-            align-items: center;
-            border-bottom: 0.5px solid #dadada;
-        
-        }
-        .link-content{
-            padding: 0 22px;
-        }
-        .link-icons{
-            border-top: 0.5px solid #dadada;
-            height: 50px;
-            width: 100%;
-        }
-        .logo{
-           padding: 16px;
-        }
-        .logo-icon{
-            vertical-align: text-bottom;
-            margin-right: 12px;
-        }
-        .verison{
-            color: #444;
-            font-size: 18px;
-        }
-        .flex-container{
-            display: flex;
-            float: left;
-            justify-content: space-between;
-            padding: 10px 22px;
-        }
-        .flex{
-            opacity: 1;
-            transition: opacity 0.2s ease-in-out;
-            align-items: left;
-            text-align: left;
-        }
-        .flex:hover{
-            opacity: 0.4s;
-        }
-       
-    </style>
-
 </head>
 <body>
     <div class="link-header">
@@ -83,12 +17,14 @@
         </h1>
     </div>
     <form method="GET">
-        <label for="github_username">Github Username:</label>
-        <input type="text" id="github_username" name="github_username">
-        <br />
-        <label for="linkedin_username">Linkedin Username:</label>
-        <input type="text" id="linkedin_username" name="linkedin_username">
-        <br />
+        <div class="github-section">
+            <label class="textLabel" for="github_username">Github Username:</label>
+            <div class="inputContainer"><input type="text" id="github_username" name="github_username"></div>
+        </div>
+        <div class="linkedin-section">
+            <label class="textLabel" for="linkedin_username">Linkedin Username:</label>
+            <div class="inputContainer"><input type="text" id="linkedin_username" name="linkedin_username"></div>
+        </div>
         <input type="submit" id="submit_btn" />
     </form>
         <script defer>
@@ -114,7 +50,7 @@
             }
         </script>
         <div class="link-content">
-            <p>Made with ❤️ at MHW Hack@Campus 🌴</p>
+            <p class="footnote"> Made with ❤️ at MHW Hack@Campus 🌴 </p>
         </div>
 </body>
 </html>

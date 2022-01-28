@@ -11,6 +11,9 @@
             "run_at": "document_end"
         }
     ],
+    "action": {
+        "default_popup": "popup.html"
+    },
     "host_permissions": [
         "http://www.linkedin.com/in/*",
         "http://localhost/*"
