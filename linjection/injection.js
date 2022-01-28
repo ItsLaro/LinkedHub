@@ -55,7 +55,7 @@ function fetchInfo(runnable) {
       primaryLanguageColor = pinnedRepo1.primaryLanguage.color;
       isFetched = true;
       youtubes = [data.youtube1, data.youtube2, data.youtube3, data.youtube4];
-      videoDemoURL = youtubes[0]; //TODO: Get from response
+      videoDemoURL = youtubes[0]; 
 
       fetch(`http://localhost:3000/contributions/${username}`)
         .then((response) => {
@@ -454,12 +454,12 @@ const prevRepo = () => {
   }
 };
 
-const bindData = (pinnedRepo) => {
+const bindData = (index, pinnedRepo) => {
   document.getElementById("projectTitle").innerHTML = pinnedRepo.name;
   document.getElementById("projectDatetime").innerHTML = pinnedRepo.createdAt;
-  document.getElementById("projectDescription").innerHTML =
-    pinnedRepo.description === null ? "" : pinnedRepo.description;
-  // document.getElementById("videoDemo").src = "https://www.youtube.com/embed/Mv_JULBp-c4";
+  document.getElementById("projectDescription").innerHTML = pinnedRepo.description === null ? "" : pinnedRepo.description;
+  document.getElementById("videoDemo").src = youtubes[index];
+  console.log("Youtube URL", youtubes[index])
   document.getElementById("profileURL").href = pinnedRepo.owner.url;
   document.getElementById("profilePic").src = pinnedRepo.owner.avatarUrl;
   // primaryLanguageName = pinnedRepo1.primaryLanguage.name;
