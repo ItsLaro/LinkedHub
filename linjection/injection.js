@@ -196,7 +196,7 @@ const generateHTML = () => {
                     <button id="prevButton" style="${btn_style}transform:translate(-20px,0);"><</button>
                        ${videoEmbed}
                        <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;width: 400px;">
-                           <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:14px;">${projectDescription}</p>
+                           <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:14px;padding-left:20px;">${projectDescription}</p>
                            <button style="${btn_style}">Inquire</button>
                        </div>
                        <button id="nextButton" style="${btn_style}">></button>
