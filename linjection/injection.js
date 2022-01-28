@@ -110,7 +110,7 @@ const generateHTML = () => {
     videoDemoURL === null
       ? `
   `
-      : `<iframe id="videoDemo" width="100%" height="220px" style="padding-right:20px;padding-top:16px;" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      : `<iframe id="videoDemo" width="100%" height="220px" style="padding-right:20px;padding-top:16px;transform:translate(-20px,0);" src="${videoDemoURL}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   `;
 
   const btn_style = `
@@ -196,7 +196,7 @@ const generateHTML = () => {
                     <button id="prevButton" style="${btn_style}transform:translate(-50px,0);"><</button>
                        ${videoEmbed}
                        <div class="display-flex" style="align-items: center;justify-content:center;flex-direction:column;padding-right: 15px;width: 400px;">
-                           <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:14px;padding-left:20px;">${projectDescription}</p>
+                           <p id="projectDescription" style="padding-top: 20%;text-align:center;font-size:14px;padding-left:20px;transform:translate(-20px,0);">${projectDescription}</p>
                            <button style="${btn_style}">Inquire</button>
                        </div>
                        <button id="nextButton" style="${btn_style}">></button>
@@ -466,7 +466,8 @@ const bindData = (index, pinnedRepo) => {
   ) {
     document.getElementById("videoDemo").style = "display: none;";
   } else {
-    document.getElementById("videoDemo").style = "display: show;";
+    document.getElementById("videoDemo").style =
+      "display: show;padding-right:20px;padding-top:16px;transform:translate(-20px,0);";
     document.getElementById("videoDemo").src = youtubes[index];
   }
   document.getElementById("profileURL").href = pinnedRepo.owner.url;
