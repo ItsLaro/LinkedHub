@@ -1,5 +1,4 @@
 let attempt = 0;
-let result = {};
 let isFetched = false;
 let username = "";
 const in_tag = window.location.pathname.split("/")[2];
@@ -20,8 +19,6 @@ let projectDatetime = "";
 let projectDescription = "";
 let primaryLanguageName = "";
 let primaryLanguageColor = "";
-let results = {};
-
 
 fetch(`http://localhost:3000/settings/${in_tag}`)
   .then((response) => {
@@ -29,9 +26,8 @@ fetch(`http://localhost:3000/settings/${in_tag}`)
     return response.json();
   })
   .then((data) => {
-    result = data;
-    username = result.gh_username;
-    pinnedRepos = result.data.user.pinnedItems.edges;
+    username = data.gh_username;
+    pinnedRepos = result.projects;
     numRepos = pinnedRepos.length;
     pinnedRepo1 = pinnedRepos[0].node;
     githubProfileURL = pinnedRepo1.owner.url;
