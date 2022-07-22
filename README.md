@@ -1,6 +1,12 @@
 # LinkedHub
 
-# How to enable (dev)
+## Demo:
+
+https://devpost.com/software/linkedhub
+
+![LinkedHub Demo](linkedhub.png)
+
+## How to enable (dev)
 
 1. Clone Repo to your machine.
 2. Type chrome://extensions/ in omnibox and press enter.
